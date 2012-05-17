@@ -54,22 +54,14 @@ function gg() {
     done
 }
 
-
 alias ll="ls -l"
 alias la="ls -la"
 alias so="source ~/.bash_profile"
 alias sub='open -a "Sublime Text 2"'
 alias atv="ssh root@Apple-tv.local"
 
-alias rsip="python manage.py runserver 10.16.174.46:8000"
-alias rsgb2="gb2 && cd giantbomb && ve && python manage.py runserver localhost:8000"
-alias rsgbm2="gb2 && cd giantbomb && ve && python manage.py runserver --settings=giantbomb.mobile_settings"
-alias rscv2="cv && cd comicvine && ve && python manage.py runserver localhost:8000"
-
 alias rs="make server"
-alias rs2="php -S 10.16.172.72:9001 -t web"
-alias rs3="php -S 192.168.1.2:9001 -t web"
-alias rs4="php -S 192.168.1.11:9001 -t web"
+alias rsip="php -S 0.0.0.0:9001 -t web"
 alias rsgb="gb && foreman start"
 
 alias wphp="php app/console assetic:dump --env=dev --watch"
@@ -98,9 +90,6 @@ alias watch="compass watch"
 alias force="compass compile --force && watch"
 # Compass Force Compile GB
 alias fgb="gb && compass compile --force -c src/Giantbomb/SiteBundle/Resources/sass/config.rb"
-
-# Deploy Old GB
-alias dvines="cd ~/whiskey/vines && co giantbomb_production && git merge cbs && push && co comicvine_production && git merge cbs && push && co cbs"
 
 # Path Aliases
 alias cbs="cd ~/cbs"
