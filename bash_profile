@@ -60,6 +60,11 @@ alias la="ls -la"
 alias ll="ls -l"
 
 # Edit bash profile in dropbox and then reload using source in terminal
+# To point your bash profile to a file hosted on dropbox make a symbolic link like so
+# ---------------------------------------------------------------
+# ln -s ~/Dropbox/Documents/DotFiles/bash_profile ~/.bash_profile
+# ---------------------------------------------------------------
+# The first path should point to your file hosted on dropbox. The second path is the symbolic link you are creating (you may need to delete or copy the contents of that file)
 alias so="source ~/.bash_profile"
 alias profile="mate ~/Dropbox/Documents/DotFiles/bash_profile"
 
@@ -112,6 +117,7 @@ alias ph="cd ~/cbs/phoenix"
 alias gb="cd ~/cbs/giantbomb"
 alias chat="cd ~/cbs/Chat-o-saurus/"
 alias cg="cd ~/git/"
+alias home="cd ~"
 
 alias vines="cd ~/whiskey/vines"
 alias gb2="cd ~/whiskey/giantbomb"
@@ -119,8 +125,7 @@ alias cv2="cd ~/whiskey/comicvine"
 
 alias ag="cd ~/Sites/alexisgallisa"
 
-# Misc Aliases 
+# Misc Aliases Edit Hosts and nginx files with TextMate - SSH into appletv for jailbreaking
 alias edithosts="mate /etc/hosts"
 alias ngconf="mate /usr/local/etc/nginx/nginx.conf"
 alias atv="ssh root@Apple-tv.local"
-
