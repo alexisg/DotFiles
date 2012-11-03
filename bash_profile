@@ -55,77 +55,84 @@ function gg() {
     done
 }
 
-# List directory contents with/without invisibles
-alias la="ls -la"
-alias ll="ls -l"
-
 # Edit bash profile in dropbox and then reload using source in terminal
 # To point your bash profile to a file hosted on dropbox make a symbolic link like so
 # ---------------------------------------------------------------
 # ln -s ~/Dropbox/Documents/DotFiles/bash_profile ~/.bash_profile
 # ---------------------------------------------------------------
-# The first path should point to your file hosted on dropbox. The second path is the symbolic link you are creating (you may need to delete or copy the contents of that file)
-alias so="source ~/.bash_profile"
-alias profile="mate ~/Dropbox/Documents/DotFiles/bash_profile"
+    alias so="source ~/.bash_profile"
+    alias profile="mate ~/Dropbox/Documents/DotFiles/bash_profile"
+
+# List directory contents with/without invisibles
+# -----------------------------------------------
+    alias la="ls -la"
+    alias ll="ls -l"
 
 # Open files or directories in Sublime 2. Use "sub ." to open directory 
-alias sub='open -a "Sublime Text 2"'
+# ---------------------------------------------------------------------
+    alias sub='open -a "Sublime Text 2"'
 
-# Make Git life easite with these aliases
-alias co="git checkout"
-alias push="git push"
+# Make Git life easier with these aliases
+# ---------------------------------------
+    alias co="git checkout"
+    alias push="git push"
 
-# Use rebase as base pull. If pull merge fails you may need to abort the rebase
-alias pull="git pull --rebase"
-alias abort="git rebase --abort"
+    # Use rebase as base pull. If pull merge fails you may need to abort the rebase
+    alias pull="git pull --rebase"
+    alias abort="git rebase --abort"
+    alias ci="git commit -a -m"
+    alias stat="git status"
+    alias add="git add"
+    alias merge="git merge"
+    alias reset="git reset --hard"
+    alias diff="git diff"
+    alias stash="git stash"
+    alias pop="git stash pop"
 
-alias ci="git commit -a -m"
-alias stat="git status"
-alias add="git add"
-alias merge="git merge"
-alias reset="git reset --hard"
-alias diff="git diff"
-alias stash="git stash"
-alias pop="git stash pop"
+    # CBS Git Aliases
+    # Recursively run pull in all directories found in CBS dir
+    alias pcbs="cd ~/cbs && gg pull && ph"
+    # Recursively run pull in gb needed directories only
+    alias pgb="gb && pull && ph && pull"
+    alias scbs="cd ~/cbs && gg status && ph"
+    # alias rcbs="cd ~/cbs && gg rel && ph"
+    alias mr="gb && make resources && echo '**! Made resources in giantbomb yo!**' && ph"
+    alias vu="gb && make vendor-update && echo '**! Vendor Update in giantbomb yo!**' && ph"
 
 
-# CBS Git Aliases
-# Recursively run pull in all directories found in CBS dir
-alias pcbs="cd ~/cbs && gg pull && ph"
-# Recursively run pull in gb needed directories only
-alias pgb="gb && pull && ph && pull"
-alias scbs="cd ~/cbs && gg status && ph"
-# alias rcbs="cd ~/cbs && gg rel && ph"
-alias mr="gb && make resources && echo '**! Made resources in giantbomb yo!**' && ph"
-alias vu="gb && make vendor-update && echo '**! Vendor Update in giantbomb yo!**' && ph"
+# Compass Style Aliases - Eveyone should use a css compiler
+# ---------------------------------------------------------
+    alias watch="compass watch"
+    alias force="compass compile --force && watch"
 
-# Compass Default Aliases
-alias watch="compass watch"
-alias force="compass compile --force && watch"
+    # Compass Compile Giant Bomb Status, Watch and Force commands
+    alias sgb="gb && compass stats -c src/Giantbomb/SiteBundle/Resources/sass/config.rb --output-style compressed --force"
+    alias wgb="gb && compass watch -c src/Giantbomb/SiteBundle/Resources/sass/config.rb"
+    alias wph="gb && compass watch -c vendor/phoenix/Phoenix/CmsBundle/Resources/sass/config.rb"
 
-# Compass Compile Giant Bomb Status, Watch and Force commands
-alias sgb="gb && compass stats -c src/Giantbomb/SiteBundle/Resources/sass/config.rb --output-style compressed --force"
-alias wgb="gb && compass watch -c src/Giantbomb/SiteBundle/Resources/sass/config.rb"
-alias wph="gb && compass watch -c vendor/phoenix/Phoenix/CmsBundle/Resources/sass/config.rb"
+    alias fgb="gb && compass compile --force -c src/Giantbomb/SiteBundle/Resources/sass/config.rb"
+    alias fph="gb && compass compile --force -c vendor/phoenix/Phoenix/CmsBundle/Resources/sass/config.rb"
 
-alias fgb="gb && compass compile --force -c src/Giantbomb/SiteBundle/Resources/sass/config.rb"
-alias fph="gb && compass compile --force -c vendor/phoenix/Phoenix/CmsBundle/Resources/sass/config.rb"
 
 # Path Aliases
-alias cbs="cd ~/cbs"
-alias ph="cd ~/cbs/phoenix"
-alias gb="cd ~/cbs/giantbomb"
-alias chat="cd ~/cbs/Chat-o-saurus/"
-alias cg="cd ~/git/"
-alias home="cd ~"
+# -------------
+    alias cbs="cd ~/cbs"
+    alias ph="cd ~/cbs/phoenix"
+    alias gb="cd ~/cbs/giantbomb"
+    alias chat="cd ~/cbs/Chat-o-saurus/"
+    alias cg="cd ~/git/"
+    alias home="cd ~"
 
-alias vines="cd ~/whiskey/vines"
-alias gb2="cd ~/whiskey/giantbomb"
-alias cv2="cd ~/whiskey/comicvine"
+    alias vines="cd ~/whiskey/vines"
+    alias gb2="cd ~/whiskey/giantbomb"
+    alias cv2="cd ~/whiskey/comicvine"
 
-alias ag="cd ~/Sites/alexisgallisa"
+    alias ag="cd ~/Sites/alexisgallisa"
+
 
 # Misc Aliases Edit Hosts and nginx files with TextMate - SSH into appletv for jailbreaking
-alias edithosts="mate /etc/hosts"
-alias ngconf="mate /usr/local/etc/nginx/nginx.conf"
-alias atv="ssh root@Apple-tv.local"
+# -----------------------------------------------------------------------------------------
+    alias edithosts="mate /etc/hosts"
+    alias ngconf="mate /usr/local/etc/nginx/nginx.conf"
+    alias atv="ssh root@Apple-tv.local"
+
