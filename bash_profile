@@ -133,9 +133,9 @@ function gg() {
     alias wgb="gb && compass watch -c src/Giantbomb/SiteBundle/Resources/sass/config.rb"
     alias fgb="gb && compass compile -c src/Giantbomb/SiteBundle/Resources/sass/config.rb --force"
 
-    alias sgb="cv && compass stats -c src/Comicvine/SiteBundle/Resources/sass/config.rb --output-style compressed --force"
+    alias scv="cv && compass stats -c src/Comicvine/SiteBundle/Resources/sass/config.rb --output-style compressed --force"
     alias wcv="cv && compass watch -c src/Comicvine/SiteBundle/Resources/sass/config.rb"
-    alias fgb="cv && compass compile -c src/Comicvine/SiteBundle/Resources/sass/config.rb --force"
+    alias fcv="cv && compass compile -c src/Comicvine/SiteBundle/Resources/sass/config.rb --force"
     
     alias sgb="gb && compass stats -c vendor/phoenix/Phoenix/CmsBundle/Resources/sass/config.rb --output-style compressed --force"
     alias wph="gb && compass watch -c vendor/phoenix/Phoenix/CmsBundle/Resources/sass/config.rb"
@@ -155,7 +155,7 @@ function gg() {
     alias home="cd ~"
 
     alias ag="cd ~/Sites/alexisgallisa"
-
+    
 
 # Misc Aliases Edit Hosts and nginx files with TextMate - SSH into appletv for jailbreaking
 # -----------------------------------------------------------------------------------------
