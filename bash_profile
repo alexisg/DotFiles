@@ -1,9 +1,13 @@
-export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+# Set path for brew, then use Dropbox Dotfiles, then android sdk
+export PATH=/usr/local/bin:/usr/local/sbin:~/Dropbox/Documents/DotFiles/bin:~/android/sdk/tools:$PATH
+
+# Fancy sweet ass colors in terminal
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 
 # Set Path in terminal to show current user logged in current path - current git branch - git status if dirty
 export PS1='<\[\033[0;35m\]\h\[\033[0m\]:\[\033[0;33m\]\u\[\033[0m\] : \[\033[1;36m\]\w\[\033[0m\] \[\033[0;35m\]$(gitify)\[\033[0m\]> '
+
 
 # These functions are run to populate the path in terminal
 function parse_git_branch {
@@ -18,7 +22,7 @@ function git-dirty {
     st=$(git status 2>/dev/null | tail -n 1)
     if [[ $st != "nothing to commit (working directory clean)" ]]
     then
-        echo " *You have shit to add "
+        echo " *You have shit to add or push"
     fi
 }
 
@@ -55,7 +59,9 @@ function gg() {
     done
 }
 
+
 # Edit bash profile in dropbox and then reload using source in terminal
+# mate assumes you have Textmate command line tools set but you could also use VI,VIM,PICO,EMACS,Sublime,etc
 # To point your bash profile to a file hosted on dropbox make a symbolic link like so
 # ---------------------------------------------------------------
 # ln -s ~/Dropbox/Documents/DotFiles/bash_profile ~/.bash_profile
@@ -88,16 +94,33 @@ function gg() {
     alias diff="git diff"
     alias stash="git stash"
     alias pop="git stash pop"
+    alias wtf="gg wtf"
 
     # CBS Git Aliases
     # Recursively run pull in all directories found in CBS dir
     alias pcbs="cd ~/cbs && gg pull && ph"
     # Recursively run pull in gb needed directories only
-    alias pgb="gb && pull && ph && pull"
-    alias scbs="cd ~/cbs && gg status && ph"
-    # alias rcbs="cd ~/cbs && gg rel && ph"
-    alias mr="gb && make resources && echo '**! Made resources in giantbomb yo!**' && ph"
-    alias vu="gb && make vendor-update && echo '**! Vendor Update in giantbomb yo!**' && ph"
+    alias pgb="gb && co master && pull && ph && co master && pull"
+    alias pcv="cv && co master && pull && ph && co master && pull"
+    alias pgball="gb && co prod && pull && co master && pull && ph && co prod-gb && pull && co master && pull"
+
+    # Status of all cbs repositories using git wtf
+    alias scbs="cd ~/cbs && gg wtf && ph"
+    alias sph="gb && co prod && wtf && co master && wtf && ph && co prod-gb && wtf && co master && wtf"
+
+    # Make Resources in GB, CV
+    alias mr="gb && make cache-clear && make js && make resources && echo '**! Made resources in giantbomb yo!**' && cv && make cache-clear && make js && make resources && echo '**! Made resources in giantbomb comicvine yo!**' && ph"
+    alias vu="gb && make vendor-update && cv && make vendor-update && echo '**! Vendor Update in giantbomb comicvine yo!**' && ph"
+
+    # Boot up node for chat server
+    alias chat="cd ~/cbs/Chat-o-saurus && node app.js"
+
+    # Tail the gb dev.log
+    alias tailgb="gb && tail -f app/logs/dev.log"
+
+    # Sometime PHP and Nginx are jerks and need to be rebooted
+    alias phpstart="launchctl unload -w ~/Library/LaunchAgents/php54.plist && launchctl load -w ~/Library/LaunchAgents/php54.plist"
+    alias ngstart="nginx -s reload"
 
 
 # Compass Style Aliases - Eveyone should use a css compiler
@@ -105,13 +128,21 @@ function gg() {
     alias watch="compass watch"
     alias force="compass compile --force && watch"
 
-    # Compass Compile Giant Bomb Status, Watch and Force commands
+    # Compass Compile Status, Watch and Force commands
     alias sgb="gb && compass stats -c src/Giantbomb/SiteBundle/Resources/sass/config.rb --output-style compressed --force"
     alias wgb="gb && compass watch -c src/Giantbomb/SiteBundle/Resources/sass/config.rb"
-    alias wph="gb && compass watch -c vendor/phoenix/Phoenix/CmsBundle/Resources/sass/config.rb"
+    alias fgb="gb && compass compile -c src/Giantbomb/SiteBundle/Resources/sass/config.rb --force"
 
-    alias fgb="gb && compass compile --force -c src/Giantbomb/SiteBundle/Resources/sass/config.rb"
-    alias fph="gb && compass compile --force -c vendor/phoenix/Phoenix/CmsBundle/Resources/sass/config.rb"
+    alias sgb="cv && compass stats -c src/Comicvine/SiteBundle/Resources/sass/config.rb --output-style compressed --force"
+    alias wcv="cv && compass watch -c src/Comicvine/SiteBundle/Resources/sass/config.rb"
+    alias fgb="cv && compass compile -c src/Comicvine/SiteBundle/Resources/sass/config.rb --force"
+    
+    alias sgb="gb && compass stats -c vendor/phoenix/Phoenix/CmsBundle/Resources/sass/config.rb --output-style compressed --force"
+    alias wph="gb && compass watch -c vendor/phoenix/Phoenix/CmsBundle/Resources/sass/config.rb"
+    alias fph="gb && compass compile -c vendor/phoenix/Phoenix/CmsBundle/Resources/sass/config.rb --force"
+
+    # Use sassymedia.py to recompile all 8000 media queries into only as many that are needed (less than 10)
+    alias sassy="fgb && python ~/Dropbox/Documents/DotFiles/sassymedia.py ~/cbs/giantbomb/src/Giantbomb/SiteBundle/Resources/public/css/giantbomb_white.css"
 
 
 # Path Aliases
@@ -119,13 +150,9 @@ function gg() {
     alias cbs="cd ~/cbs"
     alias ph="cd ~/cbs/phoenix"
     alias gb="cd ~/cbs/giantbomb"
-    alias chat="cd ~/cbs/Chat-o-saurus/"
+    alias cv="cd ~/cbs/comicvine"
     alias cg="cd ~/git/"
     alias home="cd ~"
-
-    alias vines="cd ~/whiskey/vines"
-    alias gb2="cd ~/whiskey/giantbomb"
-    alias cv2="cd ~/whiskey/comicvine"
 
     alias ag="cd ~/Sites/alexisgallisa"
 
@@ -135,4 +162,9 @@ function gg() {
     alias edithosts="mate /etc/hosts"
     alias ngconf="mate /usr/local/etc/nginx/nginx.conf"
     alias atv="ssh root@Apple-tv.local"
+
+    alias cphp="php app/console --env=dev cache:clear"
+
+# Push to production
+alias deployph="ph && co master && pull && co prod-gb && git merge master && push && co prod-cv && git merge master && push && co master && gb && co master && pull && co prod && pull && git merge master && co master && cv && co master && pull && co prod && pull && git merge master && co master"
 
