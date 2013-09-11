@@ -20,7 +20,7 @@ function git-branch-name {
 
 function git-dirty {
     st=$(git status 2>/dev/null | tail -n 1)
-    if [[ $st != "nothing to commit (working directory clean)" ]]
+    if [[ $st != "nothing to commit, working directory clean" ]]
     then
         echo " *You have shit to add or push"
     fi
@@ -100,17 +100,21 @@ function gg() {
     # Recursively run pull in all directories found in CBS dir
     alias pcbs="cd ~/cbs && gg pull && ph"
     # Recursively run pull in gb needed directories only
-    alias pgb="gb && co master && pull && ph && co master && pull"
-    alias pcv="cv && co master && pull && ph && co master && pull"
+    alias pgb="ph && co master && pull && gb && co master && pull && make js && ph"
+    alias pgs="ph && co triforce && pull && gs && co master && pull"
+    alias pcv="ph && co master && pull && cv && co master && pull && make js && ph"
+
     alias pgball="gb && co prod && pull && co master && pull && ph && co prod-gb && pull && co master && pull"
 
     # Status of all cbs repositories using git wtf
     alias scbs="cd ~/cbs && gg wtf && ph"
     alias sph="gb && co prod && wtf && co master && wtf && ph && co prod-gb && wtf && co master && wtf"
 
-    # Make Resources in GB, CV
-    alias mr="gb && make cache-clear && make js && make resources && echo '**! Made resources in giantbomb yo!**' && cv && make cache-clear && make js && make resources && echo '**! Made resources in giantbomb comicvine yo!**' && ph"
-    alias vu="gb && make vendor-update && cv && make vendor-update && echo '**! Vendor Update in giantbomb comicvine yo!**' && ph"
+    # Make Resources, Vendor Update and Cache Clear
+    alias mr="make resources"
+    alias vu="make vendor-update"
+    alias cache="make cache-clear"
+    alias mc="make cache-clear"
 
     # Boot up node for chat server
     alias chat="cd ~/cbs/Chat-o-saurus && node app.js"
@@ -118,9 +122,8 @@ function gg() {
     # Tail the gb dev.log
     alias tailgb="gb && tail -f app/logs/dev.log"
 
-    # Sometime PHP and Nginx are jerks and need to be rebooted
-    alias phpstart="launchctl unload -w ~/Library/LaunchAgents/php54.plist && launchctl load -w ~/Library/LaunchAgents/php54.plist"
-    alias ngstart="nginx -s reload"
+    # Watch Assetic JS
+    alias wjs="php app/console assetic:dump --watch"
 
 
 # Compass Style Aliases - Eveyone should use a css compiler
@@ -137,9 +140,14 @@ function gg() {
     alias wcv="cv && compass watch -c src/Comicvine/SiteBundle/Resources/sass/config.rb"
     alias fcv="cv && compass compile -c src/Comicvine/SiteBundle/Resources/sass/config.rb --force"
     
-    alias sgb="gb && compass stats -c vendor/phoenix/Phoenix/CmsBundle/Resources/sass/config.rb --output-style compressed --force"
+    alias sph="gb && compass stats -c vendor/phoenix/Phoenix/CmsBundle/Resources/sass/config.rb --output-style compressed --force"
     alias wph="gb && compass watch -c vendor/phoenix/Phoenix/CmsBundle/Resources/sass/config.rb"
     alias fph="gb && compass compile -c vendor/phoenix/Phoenix/CmsBundle/Resources/sass/config.rb --force"
+
+    alias sgs="gs && compass stats -c src/Gamespot/SiteBundle/Resources/sass/config.rb --output-style compressed --force"
+    alias wgs="gs && compass compile -c src/Gamespot/SiteBundle/Resources/sass/config.rb --force && compass watch -c src/Gamespot/SiteBundle/Resources/sass/config.rb"
+    alias fgs="gs && compass compile -c src/Gamespot/SiteBundle/Resources/sass/config.rb --force"
+
 
     # Use sassymedia.py to recompile all 8000 media queries into only as many that are needed (less than 10)
     alias sassy="fgb && python ~/Dropbox/Documents/DotFiles/sassymedia.py ~/cbs/giantbomb/src/Giantbomb/SiteBundle/Resources/public/css/giantbomb_white.css"
@@ -151,20 +159,27 @@ function gg() {
     alias ph="cd ~/cbs/phoenix"
     alias gb="cd ~/cbs/giantbomb"
     alias cv="cd ~/cbs/comicvine"
+    alias gs="cd ~/cbs/gamespot"
     alias cg="cd ~/git/"
     alias home="cd ~"
 
-    alias ag="cd ~/Sites/alexisgallisa"
     
 
 # Misc Aliases Edit Hosts and nginx files with TextMate - SSH into appletv for jailbreaking
 # -----------------------------------------------------------------------------------------
-    alias edithosts="mate /etc/hosts"
-    alias ngconf="mate /usr/local/etc/nginx/nginx.conf"
+    alias edithosts="sudo mate /etc/hosts"
+    alias editng="sudo mate /usr/local/etc/nginx/nginx.conf"
+    alias editphp="sudo mate /usr/local/etc/php/5.4/php.ini"
     alias atv="ssh root@Apple-tv.local"
-
     alias cphp="php app/console --env=dev cache:clear"
+    
+    # Sometime PHP and Nginx are jerks and need to be rebooted
+    alias phpstart="launchctl unload -w ~/Library/LaunchAgents/php54.plist && launchctl load -w ~/Library/LaunchAgents/php54.plist"
+    alias ngstart="nginx -s reload"
+    alias webstart="ngstart && phpstart"
 
 # Push to production
 alias deployph="ph && co master && pull && co prod-gb && git merge master && push && co prod-cv && git merge master && push && co master && gb && co master && pull && co prod && pull && git merge master && co master && cv && co master && pull && co prod && pull && git merge master && co master"
 
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
