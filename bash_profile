@@ -150,7 +150,8 @@ function gg() {
 
 
     # Use sassymedia.py to recompile all 8000 media queries into only as many that are needed (less than 10)
-    alias sassy="fgb && python ~/Dropbox/Documents/DotFiles/sassymedia.py ~/cbs/giantbomb/src/Giantbomb/SiteBundle/Resources/public/css/giantbomb_white.css"
+    alias sassygb="fgb && python ~/Dropbox/Documents/DotFiles/sassymedia.py ~/cbs/giantbomb/src/Giantbomb/SiteBundle/Resources/public/css/giantbomb_white.css"
+    alias sassygs="fgs && python ~/Dropbox/Documents/DotFiles/sassymedia.py ~/cbs/gamespot/src/Gamespot/SiteBundle/Resources/public/css/gamespot_white.css"
 
 
 # Path Aliases
@@ -162,6 +163,7 @@ function gg() {
     alias gs="cd ~/cbs/gamespot"
     alias cg="cd ~/git/"
     alias home="cd ~"
+
 
     
 
