@@ -9,6 +9,9 @@ export LSCOLORS=ExFxCxDxBxegedabagacad
 export PS1='<\[\033[0;35m\]\h\[\033[0m\]:\[\033[0;33m\]\u\[\033[0m\] : \[\033[1;36m\]\w\[\033[0m\] \[\033[0;35m\]$(gitify)\[\033[0m\]> '
 
 
+# Function Aliases
+# ------------------------------------------------------------------------------
+
 # These functions are run to populate the path in terminal
 function parse_git_branch {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
@@ -44,6 +47,9 @@ function gitify {
     fi
 }
 
+# Project Root
+projects_root=~/cbs
+
  # This function allows you to run git commands recursively through directories
 function gg() {
     find . \
@@ -59,6 +65,88 @@ function gg() {
     done
 }
 
+# Performs git functions on all git projects in $projects_root
+# and returns user to the directory they executed gall from
+function gall() {
+    cd $projects_root
+    find . \
+        -mindepth 1 -maxdepth 2 \
+        -type d -name .git \
+    | while read git_dir; do
+        dir=`dirname $git_dir`
+        echo $dir:
+        cd $dir
+        git $*
+        cd - >/dev/null
+        echo ""
+    done
+    cd -
+}
+
+# clear app cache
+function delcache() {
+    dir=`pwd`
+    buf=${dir#*$projects_root/}
+    dirlen=$((${#dir}))
+    buflen=$((${#buf}))
+    deleted=false
+
+    if (( dirlen > bufflen )); then
+        project=${buf%%/*}
+        project_root=$projects_root/$project
+        project_dir=${buf#$project}
+
+        if [ "$project" != '' ]; then
+            echo "Deleting app/cache for $project"
+
+            cd $project_root
+
+            appcache=`find app/cache/* -type d -maxdepth 0`
+
+            if [ "${appcache[0]}" != '' ]; then
+                rm -rf app/cache/*
+                echo "...completed"
+                deleted=true
+            else
+                echo "No app/cache to delete"
+            fi
+
+            if [ "$project_dir" != "" ] && [[ $project_dir != /app/cache/* ]]; then
+                cd -
+            fi
+        else
+            echo "Not in a project!"
+        fi
+    else
+        echo "Not in a project!"
+    fi
+}
+
+# restart PHP NGINX memcached
+function restart() {
+    if [ $1 == 'php' ]; then
+        echo "Restarting php"
+        launchctl unload -w ~/Library/LaunchAgents/php54.plist
+        launchctl load -w ~/Library/LaunchAgents/php54.plist
+    fi
+    if [ $1 == 'nginx' ]; then
+        echo "Restarting nginx"
+        nginx -s reload
+    fi
+    if [ $1 == 'memcached' ]; then
+        echo "Restarting memcached"
+        killall memcached
+        launchctl unload -w ~/Library/LaunchAgents/memcached.plist
+        launchctl load -w ~/Library/LaunchAgents/memcached.plist
+    fi
+    if [ $1 == 'all' ]; then
+        restart nginx
+        restart php
+        restart memcached
+        delcache
+    fi
+}
+
 
 # Edit bash profile in dropbox and then reload using source in terminal
 # mate assumes you have Textmate command line tools set but you could also use VI,VIM,PICO,EMACS,Sublime,etc
@@ -67,14 +155,14 @@ function gg() {
 # ln -s ~/Dropbox/Documents/DotFiles/bash_profile ~/.bash_profile
 # ---------------------------------------------------------------
     alias so="source ~/.bash_profile"
-    alias profile="mate ~/Dropbox/Documents/DotFiles/bash_profile"
+    alias profile="sub ~/Dropbox/Documents/DotFiles/bash_profile"
 
 # List directory contents with/without invisibles
 # -----------------------------------------------
     alias la="ls -la"
     alias ll="ls -l"
 
-# Open files or directories in Sublime 2. Use "sub ." to open directory 
+# Open files or directories in Sublime 2. Use "sub ." to open directory
 # ---------------------------------------------------------------------
     alias sub='open -a "Sublime Text 2"'
 
@@ -84,7 +172,7 @@ function gg() {
     alias push="git push"
 
     # Use rebase as base pull. If pull merge fails you may need to abort the rebase
-    alias pull="git pull --rebase"
+    alias pull="git pull --rebase --stat"
     alias abort="git rebase --abort"
     alias ci="git commit -a -m"
     alias stat="git status"
@@ -99,12 +187,16 @@ function gg() {
     # CBS Git Aliases
     # Recursively run pull in all directories found in CBS dir
     alias pcbs="cd ~/cbs && gg pull && ph"
-    # Recursively run pull in gb needed directories only
-    alias pgb="ph && co master && pull && gb && co master && pull && make js && ph"
-    alias pgs="ph && co triforce && pull && gs && co master && pull"
-    alias pcv="ph && co master && pull && cv && co master && pull && make js && ph"
 
-    alias pgball="gb && co prod && pull && co master && pull && ph && co prod-gb && pull && co master && pull"
+    # Recursively run pull in gb needed directories only
+    alias pgb="ph && co master && pull && gb && co master && pull && ph"
+    alias pcv="ph && co master && pull && cv && co master && pull && ph"
+    alias pgs="ph && co master && pull && gs && co master && pull"
+    alias pes="ph && co master && pull && es && co master && pull"
+
+    # Pull GS make js
+    alias pgs2="ph && co master && pull && gs && co master && pull && make js"
+
 
     # Status of all cbs repositories using git wtf
     alias scbs="cd ~/cbs && gg wtf && ph"
@@ -112,8 +204,12 @@ function gg() {
 
     # Make Resources, Vendor Update and Cache Clear
     alias mr="make resources"
-    alias vu="make vendor-update"
-    alias cache="make cache-clear"
+    alias vu="bin/composer.phar self-update && make vendor-update"
+    # alias cache="make cache-clear"
+    alias cache="sudo rm -r app/cache/"
+    # alias killmc="~/Dropbox/Documents/DotFiles/flush_memcache.sh"
+    alias killmc="killall memcached"
+
     alias mc="make cache-clear"
 
     # Boot up node for chat server
@@ -121,6 +217,7 @@ function gg() {
 
     # Tail the gb dev.log
     alias tailgb="gb && tail -f app/logs/dev.log"
+    alias tailgs="gs && tail -f app/logs/dev.log"
 
     # Watch Assetic JS
     alias wjs="php app/console assetic:dump --watch"
@@ -135,11 +232,12 @@ function gg() {
     alias sgb="gb && compass stats -c src/Giantbomb/SiteBundle/Resources/sass/config.rb --output-style compressed --force"
     alias wgb="gb && compass watch -c src/Giantbomb/SiteBundle/Resources/sass/config.rb"
     alias fgb="gb && compass compile -c src/Giantbomb/SiteBundle/Resources/sass/config.rb --force"
+    alias bgb="fgb && blessc ~/cbs/giantbomb/src/Giantbomb/SiteBundle/Resources/public/css/giantbomb_white.css --force && blessc ~/cbs/giantbomb/src/Giantbomb/SiteBundle/Resources/public/css/giantbomb_black.css --force"
 
     alias scv="cv && compass stats -c src/Comicvine/SiteBundle/Resources/sass/config.rb --output-style compressed --force"
     alias wcv="cv && compass watch -c src/Comicvine/SiteBundle/Resources/sass/config.rb"
     alias fcv="cv && compass compile -c src/Comicvine/SiteBundle/Resources/sass/config.rb --force"
-    
+
     alias sph="gb && compass stats -c vendor/phoenix/Phoenix/CmsBundle/Resources/sass/config.rb --output-style compressed --force"
     alias wph="gb && compass watch -c vendor/phoenix/Phoenix/CmsBundle/Resources/sass/config.rb"
     alias fph="gb && compass compile -c vendor/phoenix/Phoenix/CmsBundle/Resources/sass/config.rb --force"
@@ -147,7 +245,22 @@ function gg() {
     alias sgs="gs && compass stats -c src/Gamespot/SiteBundle/Resources/sass/config.rb --output-style compressed --force"
     alias wgs="gs && compass compile -c src/Gamespot/SiteBundle/Resources/sass/config.rb --force && compass watch -c src/Gamespot/SiteBundle/Resources/sass/config.rb"
     alias fgs="gs && compass compile -c src/Gamespot/SiteBundle/Resources/sass/config.rb --force"
+    alias cgs="gs && compass compile -c src/Gamespot/SiteBundle/Resources/sass/config.rb"
+    alias bgs="cgs && blessc ~/cbs/gamespot/src/Gamespot/SiteBundle/Resources/public/css/gamespot_white.css --force  && blessc ~/cbs/gamespot/src/Gamespot/SiteBundle/Resources/public/css/gamespot_black.css --force"
 
+    alias wwgs="gs && cd src/Gamespot/SiteBundle/Resources/sass && sass --compass --watch --sourcemap gamespot_white.sass:../public/css/gamespot_white.css"
+    alias wwgs2="gs && cd src/Gamespot/SiteBundle/Resources/sass && sass --compass --watch --sourcemap gamespot_white.sass:../public/css/gamespot_white_variant.css"
+    alias wbgs="gs && cd src/Gamespot/SiteBundle/Resources/sass && sass --compass --watch --sourcemap gamespot_black.sass:../public/css/gamespot_black.css"
+
+
+    alias ses="es && compass stats -c src/Esports/SiteBundle/Resources/sass/config.rb --output-style compressed --force"
+    alias wes="es && compass compile -c src/Esports/SiteBundle/Resources/sass/config.rb --force && compass watch -c src/Esports/SiteBundle/Resources/sass/config.rb"
+    alias fes="es && compass compile -c src/Esports/SiteBundle/Resources/sass/config.rb --force"
+    alias ces="es && compass compile -c src/Esports/SiteBundle/Resources/sass/config.rb"
+    alias bes="ces && blessc ~/cbs/esports/src/Esports/SiteBundle/Resources/public/css/esports_white.css --force  && blessc ~/cbs/gamespot/src/Esports/SiteBundle/Resources/public/css/esports_black.css --force"
+
+    # Error page
+    alias werror="gs && compass watch -c vendor/phoenix/Phoenix/SiteBundle/Resources/public/css/config.rb"
 
     # Use sassymedia.py to recompile all 8000 media queries into only as many that are needed (less than 10)
     alias sassygb="fgb && python ~/Dropbox/Documents/DotFiles/sassymedia.py ~/cbs/giantbomb/src/Giantbomb/SiteBundle/Resources/public/css/giantbomb_white.css"
@@ -161,20 +274,22 @@ function gg() {
     alias gb="cd ~/cbs/giantbomb"
     alias cv="cd ~/cbs/comicvine"
     alias gs="cd ~/cbs/gamespot"
+    alias es="cd ~/cbs/esports"
     alias cg="cd ~/git/"
     alias home="cd ~"
 
+    alias ag="cd ~/webhook/alexisgallisa"
+    alias gf="ssh agallisa@dev.gamefaqs.com"
 
-    
 
 # Misc Aliases Edit Hosts and nginx files with TextMate - SSH into appletv for jailbreaking
 # -----------------------------------------------------------------------------------------
-    alias edithosts="sudo mate /etc/hosts"
+    alias edithosts="sub /etc/hosts"
     alias editng="sudo mate /usr/local/etc/nginx/nginx.conf"
     alias editphp="sudo mate /usr/local/etc/php/5.4/php.ini"
     alias atv="ssh root@Apple-tv.local"
     alias cphp="php app/console --env=dev cache:clear"
-    
+
     # Sometime PHP and Nginx are jerks and need to be rebooted
     alias phpstart="launchctl unload -w ~/Library/LaunchAgents/php54.plist && launchctl load -w ~/Library/LaunchAgents/php54.plist"
     alias ngstart="nginx -s reload"
@@ -182,6 +297,8 @@ function gg() {
 
 # Push to production
 alias deployph="ph && co master && pull && co prod-gb && git merge master && push && co prod-cv && git merge master && push && co master && gb && co master && pull && co prod && pull && git merge master && co master && cv && co master && pull && co prod && pull && git merge master && co master"
+
+alias deploygs="ph && co master && pull && co prod-gs && pull && git merge master && push && co master && gs && co master && pull && co prod && pull && git merge master && push && co master"
 
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
