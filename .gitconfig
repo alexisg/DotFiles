@@ -2,6 +2,9 @@
 	name = Alexis Gallisa
 	email = alexis@alexisgallisa.com
 [push]
-	default = current
+	default = tracking
 [core]
 	quotepath = false
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f

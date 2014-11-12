@@ -1,5 +1,5 @@
 # Set path for brew, then use Dropbox Dotfiles, then android sdk
-export PATH=/usr/local/bin:/usr/local/sbin:~/Dropbox/Documents/DotFiles/bin:~/android/sdk/tools:$PATH
+export PATH=/usr/local/bin:/usr/local/sbin:~/Dropbox/Documents/DotFiles/bin:~/Library/Flex/flex_sdk_4.6/bin:~/android/sdk/tools:$PATH
 
 # Fancy sweet ass colors in terminal
 export CLICOLOR=1
@@ -7,6 +7,14 @@ export LSCOLORS=ExFxCxDxBxegedabagacad
 
 # Set Path in terminal to show current user logged in current path - current git branch - git status if dirty
 export PS1='<\[\033[0;35m\]\h\[\033[0m\]:\[\033[0;33m\]\u\[\033[0m\] : \[\033[1;36m\]\w\[\033[0m\] \[\033[0;35m\]$(gitify)\[\033[0m\]> '
+
+# EVAL for Twitch junk
+eval "$(rbenv init -)"
+export CC=/usr/local/bin/gcc-4.2
+export CXX=/usr/local/bin/g++-4.2
+
+export PATH="/Users/alexisgallisa/Library/Flex/flex_sdk_4.6/bin":$PATH
+export FLEX_HOME="/Users/alexisgallisa/Library/Flex/flex_sdk_4.6"
 
 
 # Function Aliases
@@ -184,43 +192,14 @@ function restart() {
     alias pop="git stash pop"
     alias wtf="gg wtf"
 
-    # CBS Git Aliases
-    # Recursively run pull in all directories found in CBS dir
-    alias pcbs="cd ~/cbs && gg pull && ph"
-
-    # Recursively run pull in gb needed directories only
-    alias pgb="ph && co master && pull && gb && co master && pull && ph"
-    alias pcv="ph && co master && pull && cv && co master && pull && ph"
-    alias pgs="ph && co master && pull && gs && co master && pull"
-    alias pes="ph && co master && pull && es && co master && pull"
-
-    # Pull GS make js
-    alias pgs2="ph && co master && pull && gs && co master && pull && make js"
-
-
-    # Status of all cbs repositories using git wtf
-    alias scbs="cd ~/cbs && gg wtf && ph"
-    alias sph="gb && co prod && wtf && co master && wtf && ph && co prod-gb && wtf && co master && wtf"
-
-    # Make Resources, Vendor Update and Cache Clear
-    alias mr="make resources"
-    alias vu="bin/composer.phar self-update && make vendor-update"
-    # alias cache="make cache-clear"
-    alias cache="sudo rm -r app/cache/"
-    # alias killmc="~/Dropbox/Documents/DotFiles/flush_memcache.sh"
-    alias killmc="killall memcached"
-
-    alias mc="make cache-clear"
-
-    # Boot up node for chat server
-    alias chat="cd ~/cbs/Chat-o-saurus && node app.js"
+    # CBS Git Aliases - bye bye :(
 
     # Tail the gb dev.log
     alias tailgb="gb && tail -f app/logs/dev.log"
     alias tailgs="gs && tail -f app/logs/dev.log"
 
-    # Watch Assetic JS
-    alias wjs="php app/console assetic:dump --watch"
+    #View all of user's commits
+    alias loga="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author=alexisg --stat"
 
 
 # Compass Style Aliases - Eveyone should use a css compiler
@@ -229,42 +208,22 @@ function restart() {
     alias force="compass compile --force && watch"
 
     # Compass Compile Status, Watch and Force commands
-    alias sgb="gb && compass stats -c src/Giantbomb/SiteBundle/Resources/sass/config.rb --output-style compressed --force"
-    alias wgb="gb && compass watch -c src/Giantbomb/SiteBundle/Resources/sass/config.rb"
-    alias fgb="gb && compass compile -c src/Giantbomb/SiteBundle/Resources/sass/config.rb --force"
-    alias bgb="fgb && blessc ~/cbs/giantbomb/src/Giantbomb/SiteBundle/Resources/public/css/giantbomb_white.css --force && blessc ~/cbs/giantbomb/src/Giantbomb/SiteBundle/Resources/public/css/giantbomb_black.css --force"
-
-    alias scv="cv && compass stats -c src/Comicvine/SiteBundle/Resources/sass/config.rb --output-style compressed --force"
-    alias wcv="cv && compass watch -c src/Comicvine/SiteBundle/Resources/sass/config.rb"
-    alias fcv="cv && compass compile -c src/Comicvine/SiteBundle/Resources/sass/config.rb --force"
-
-    alias sph="gb && compass stats -c vendor/phoenix/Phoenix/CmsBundle/Resources/sass/config.rb --output-style compressed --force"
-    alias wph="gb && compass watch -c vendor/phoenix/Phoenix/CmsBundle/Resources/sass/config.rb"
-    alias fph="gb && compass compile -c vendor/phoenix/Phoenix/CmsBundle/Resources/sass/config.rb --force"
 
     alias sgs="gs && compass stats -c src/Gamespot/SiteBundle/Resources/sass/config.rb --output-style compressed --force"
     alias wgs="gs && compass compile -c src/Gamespot/SiteBundle/Resources/sass/config.rb --force && compass watch -c src/Gamespot/SiteBundle/Resources/sass/config.rb"
     alias fgs="gs && compass compile -c src/Gamespot/SiteBundle/Resources/sass/config.rb --force"
-    alias cgs="gs && compass compile -c src/Gamespot/SiteBundle/Resources/sass/config.rb"
     alias bgs="cgs && blessc ~/cbs/gamespot/src/Gamespot/SiteBundle/Resources/public/css/gamespot_white.css --force  && blessc ~/cbs/gamespot/src/Gamespot/SiteBundle/Resources/public/css/gamespot_black.css --force"
 
-    alias wwgs="gs && cd src/Gamespot/SiteBundle/Resources/sass && sass --compass --watch --sourcemap gamespot_white.sass:../public/css/gamespot_white.css"
-    alias wwgs2="gs && cd src/Gamespot/SiteBundle/Resources/sass && sass --compass --watch --sourcemap gamespot_white.sass:../public/css/gamespot_white_variant.css"
-    alias wbgs="gs && cd src/Gamespot/SiteBundle/Resources/sass && sass --compass --watch --sourcemap gamespot_black.sass:../public/css/gamespot_black.css"
-
-
-    alias ses="es && compass stats -c src/Esports/SiteBundle/Resources/sass/config.rb --output-style compressed --force"
-    alias wes="es && compass compile -c src/Esports/SiteBundle/Resources/sass/config.rb --force && compass watch -c src/Esports/SiteBundle/Resources/sass/config.rb"
-    alias fes="es && compass compile -c src/Esports/SiteBundle/Resources/sass/config.rb --force"
-    alias ces="es && compass compile -c src/Esports/SiteBundle/Resources/sass/config.rb"
-    alias bes="ces && blessc ~/cbs/esports/src/Esports/SiteBundle/Resources/public/css/esports_white.css --force  && blessc ~/cbs/gamespot/src/Esports/SiteBundle/Resources/public/css/esports_black.css --force"
-
-    # Error page
-    alias werror="gs && compass watch -c vendor/phoenix/Phoenix/SiteBundle/Resources/public/css/config.rb"
+    alias wwgs="gs && cd src/Gamespot/SiteBundle/Resources/sass && sass --compass --watch  gamespot_white.sass:../public/css/gamespot_white.css"
 
     # Use sassymedia.py to recompile all 8000 media queries into only as many that are needed (less than 10)
-    alias sassygb="fgb && python ~/Dropbox/Documents/DotFiles/sassymedia.py ~/cbs/giantbomb/src/Giantbomb/SiteBundle/Resources/public/css/giantbomb_white.css"
     alias sassygs="fgs && python ~/Dropbox/Documents/DotFiles/sassymedia.py ~/cbs/gamespot/src/Gamespot/SiteBundle/Resources/public/css/gamespot_white.css"
+
+    # Grab CSS stats on GS css
+    alias statgs="stylestats /Volumes/CBSi/gamespot/src/Gamespot/SiteBundle/Resources/public/css/gamespot_white.css"
+
+    # Grab CSS stats on TW css
+    alias stattw="stylestats http://localhost.twitch.tv:3000/assets/application.css?body=1"
 
 
 # Path Aliases
@@ -276,17 +235,18 @@ function restart() {
     alias gs="cd ~/cbs/gamespot"
     alias es="cd ~/cbs/esports"
     alias cg="cd ~/git/"
-    alias home="cd ~"
 
+    alias home="cd ~"
     alias ag="cd ~/webhook/alexisgallisa"
-    alias gf="ssh agallisa@dev.gamefaqs.com"
+
+    alias tw="cd ~/twitch/web"
 
 
 # Misc Aliases Edit Hosts and nginx files with TextMate - SSH into appletv for jailbreaking
 # -----------------------------------------------------------------------------------------
     alias edithosts="sub /etc/hosts"
-    alias editng="sudo mate /usr/local/etc/nginx/nginx.conf"
-    alias editphp="sudo mate /usr/local/etc/php/5.4/php.ini"
+    alias editng="sub /usr/local/etc/nginx/nginx.conf"
+    alias editphp="sub /usr/local/etc/php/5.4/php.ini"
     alias atv="ssh root@Apple-tv.local"
     alias cphp="php app/console --env=dev cache:clear"
 
@@ -298,7 +258,11 @@ function restart() {
 # Push to production
 alias deployph="ph && co master && pull && co prod-gb && git merge master && push && co prod-cv && git merge master && push && co master && gb && co master && pull && co prod && pull && git merge master && co master && cv && co master && pull && co prod && pull && git merge master && co master"
 
+alias deploycv="ph && co master && pull && co prod-cv && git merge master && push && co master && cv && co master && pull && co prod && pull && git merge master && push && co master"
+
 alias deploygs="ph && co master && pull && co prod-gs && pull && git merge master && push && co master && gs && co master && pull && co prod && pull && git merge master && push && co master"
+
+alias deploygb="ph && co master && pull && co prod-gb && pull && git merge master && push && co master && gb && co master && pull && co prod && pull && git merge master && push && co master"
 
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
