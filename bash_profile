@@ -226,7 +226,7 @@ function restart() {
 # Twitch Aliases
 # --------------
     alias ptw="tw && co master && pull"
-    alias ptw2="tw && co optimize-sass2 && pull"
+    alias ptw2="tw && co optimize-sass-trapjaw && pull"
     alias ptw3="tw && co nkss && pull"
 
 
