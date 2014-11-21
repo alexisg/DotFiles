@@ -180,7 +180,7 @@ function restart() {
     alias push="git push"
 
     # Use rebase as base pull. If pull merge fails you may need to abort the rebase
-    alias pull="git pull --rebase --stat"
+    alias pull="git pull --stat"
     alias abort="git rebase --abort"
     alias ci="git commit -a -m"
     alias stat="git status"
@@ -199,7 +199,35 @@ function restart() {
     alias tailgs="gs && tail -f app/logs/dev.log"
 
     #View all of user's commits
-    alias loga="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author=alexisg --stat"
+    alias loga="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='Alexis' --stat"
+    alias logal="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='Allen' --stat"
+    alias logj="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='jarques' --stat"
+    alias logb="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='Bryan' --stat"
+    alias loge="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='Elsie' --stat"
+    alias logt="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='thomas' --stat"
+
+# Path Aliases
+# -------------
+    alias cbs="cd ~/cbs"
+    alias ph="cd ~/cbs/phoenix"
+    alias gb="cd ~/cbs/giantbomb"
+    alias cv="cd ~/cbs/comicvine"
+    alias gs="cd ~/cbs/gamespot"
+    alias es="cd ~/cbs/esports"
+    alias gh="cd ~/github/"
+    alias dp="cd ~/Dropbox"
+
+    alias home="cd ~"
+    alias ag="cd ~/webhook/alexisgallisa"
+
+    alias tw="cd ~/twitch/web"
+
+
+# Twitch Aliases
+# --------------
+    alias ptw="tw && co master && pull"
+    alias ptw2="tw && co optimize-sass && pull"
+    alias ptw3="tw && co nkss && pull"
 
 
 # Compass Style Aliases - Eveyone should use a css compiler
@@ -224,23 +252,7 @@ function restart() {
 
     # Grab CSS stats on TW css
     alias stattw="stylestats http://localhost.twitch.tv:3000/assets/application.css?body=1"
-
-
-# Path Aliases
-# -------------
-    alias cbs="cd ~/cbs"
-    alias ph="cd ~/cbs/phoenix"
-    alias gb="cd ~/cbs/giantbomb"
-    alias cv="cd ~/cbs/comicvine"
-    alias gs="cd ~/cbs/gamespot"
-    alias es="cd ~/cbs/esports"
-    alias cg="cd ~/git/"
-
-    alias home="cd ~"
-    alias ag="cd ~/webhook/alexisgallisa"
-
-    alias tw="cd ~/twitch/web"
-
+    alias stattww="stylestats http://www-cdn.jtvnw.net/assets/application-854c668869ffcd58b7e7f06657195a91.css"
 
 # Misc Aliases Edit Hosts and nginx files with TextMate - SSH into appletv for jailbreaking
 # -----------------------------------------------------------------------------------------
