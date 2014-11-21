@@ -180,7 +180,7 @@ function restart() {
     alias push="git push"
 
     # Use rebase as base pull. If pull merge fails you may need to abort the rebase
-    alias pull="git pull --stat"
+    alias pull="git pull --rebase --stat"
     alias abort="git rebase --abort"
     alias ci="git commit -a -m"
     alias stat="git status"
