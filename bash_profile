@@ -54,10 +54,7 @@ function gitify {
     fi
 }
 
-# Project Root
-projects_root=~/cbs
-
- # This function allows you to run git commands recursively through directories
+# This function allows you to run git commands recursively through directories
 function gg() {
     find . \
         -mindepth 1 -maxdepth 2 \
@@ -70,88 +67,6 @@ function gg() {
         cd - >/dev/null
         echo ""
     done
-}
-
-# Performs git functions on all git projects in $projects_root
-# and returns user to the directory they executed gall from
-function gall() {
-    cd $projects_root
-    find . \
-        -mindepth 1 -maxdepth 2 \
-        -type d -name .git \
-    | while read git_dir; do
-        dir=`dirname $git_dir`
-        echo $dir:
-        cd $dir
-        git $*
-        cd - >/dev/null
-        echo ""
-    done
-    cd -
-}
-
-# clear app cache
-function delcache() {
-    dir=`pwd`
-    buf=${dir#*$projects_root/}
-    dirlen=$((${#dir}))
-    buflen=$((${#buf}))
-    deleted=false
-
-    if (( dirlen > bufflen )); then
-        project=${buf%%/*}
-        project_root=$projects_root/$project
-        project_dir=${buf#$project}
-
-        if [ "$project" != '' ]; then
-            echo "Deleting app/cache for $project"
-
-            cd $project_root
-
-            appcache=`find app/cache/* -type d -maxdepth 0`
-
-            if [ "${appcache[0]}" != '' ]; then
-                rm -rf app/cache/*
-                echo "...completed"
-                deleted=true
-            else
-                echo "No app/cache to delete"
-            fi
-
-            if [ "$project_dir" != "" ] && [[ $project_dir != /app/cache/* ]]; then
-                cd -
-            fi
-        else
-            echo "Not in a project!"
-        fi
-    else
-        echo "Not in a project!"
-    fi
-}
-
-# restart PHP NGINX memcached
-function restart() {
-    if [ $1 == 'php' ]; then
-        echo "Restarting php"
-        launchctl unload -w ~/Library/LaunchAgents/php54.plist
-        launchctl load -w ~/Library/LaunchAgents/php54.plist
-    fi
-    if [ $1 == 'nginx' ]; then
-        echo "Restarting nginx"
-        nginx -s reload
-    fi
-    if [ $1 == 'memcached' ]; then
-        echo "Restarting memcached"
-        killall memcached
-        launchctl unload -w ~/Library/LaunchAgents/memcached.plist
-        launchctl load -w ~/Library/LaunchAgents/memcached.plist
-    fi
-    if [ $1 == 'all' ]; then
-        restart nginx
-        restart php
-        restart memcached
-        delcache
-    fi
 }
 
 
