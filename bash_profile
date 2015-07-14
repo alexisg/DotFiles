@@ -192,12 +192,6 @@ function restart() {
     alias pop="git stash pop"
     alias wtf="gg wtf"
 
-    # CBS Git Aliases - bye bye :(
-
-    # Tail the gb dev.log
-    alias tailgb="gb && tail -f app/logs/dev.log"
-    alias tailgs="gs && tail -f app/logs/dev.log"
-
     #View all of user's commits
     alias logall="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --stat --author-date-order"
     alias loga="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='Alexis' --stat"
@@ -210,51 +204,21 @@ function restart() {
 
 # Path Aliases
 # -------------
-    alias cbs="cd ~/cbs"
-    alias ph="cd ~/cbs/phoenix"
-    alias gb="cd ~/cbs/giantbomb"
-    alias cv="cd ~/cbs/comicvine"
-    alias gs="cd ~/cbs/gamespot"
-    alias es="cd ~/cbs/esports"
     alias gh="cd ~/github/"
     alias dp="cd ~/Dropbox"
-
     alias home="cd ~"
+
     alias hook="cd ~/webhook/"
     alias ag="cd ~/webhook/alexisgallisa"
-    alias ag2="cd ~/Dropbox/AlexisGallisa/alexisgallisa.com"
+
+# Twitch Aliases
+# --------------
 
     alias tw="cd ~/twitch/"
     alias tw2="cd ~/twitch/twitchcon"
     alias tw3="cd ~/twitch/twitchcon-static"
     alias tw4="cd ~/twitch/styles"
     alias tw5="cd ~/twitch/styles-link"
-
-# Twitch Aliases
-# --------------
-    alias ptw="tw && co master && pull"
-    alias ptw2="tw2 && co hook && pull"
-
-
-# Compass Style Aliases - Eveyone should use a css compiler
-# ---------------------------------------------------------
-    alias watch="compass watch"
-    alias force="compass compile --force && watch"
-
-    # Compass Compile Status, Watch and Force commands
-
-    alias sgs="gs && compass stats -c src/Gamespot/SiteBundle/Resources/sass/config.rb --output-style compressed --force"
-    alias wgs="gs && compass compile -c src/Gamespot/SiteBundle/Resources/sass/config.rb --force && compass watch -c src/Gamespot/SiteBundle/Resources/sass/config.rb"
-    alias fgs="gs && compass compile -c src/Gamespot/SiteBundle/Resources/sass/config.rb --force"
-    alias bgs="cgs && blessc ~/cbs/gamespot/src/Gamespot/SiteBundle/Resources/public/css/gamespot_white.css --force  && blessc ~/cbs/gamespot/src/Gamespot/SiteBundle/Resources/public/css/gamespot_black.css --force"
-
-    alias wwgs="gs && cd src/Gamespot/SiteBundle/Resources/sass && sass --compass --watch  gamespot_white.sass:../public/css/gamespot_white.css"
-
-    # Use sassymedia.py to recompile all 8000 media queries into only as many that are needed (less than 10)
-    alias sassygs="fgs && python ~/Dropbox/Documents/DotFiles/sassymedia.py ~/cbs/gamespot/src/Gamespot/SiteBundle/Resources/public/css/gamespot_white.css"
-
-    # Grab CSS stats on GS css
-    alias statgs="stylestats /Volumes/CBSi/gamespot/src/Gamespot/SiteBundle/Resources/public/css/gamespot_white.css"
 
     # Grab CSS stats on TW css
     alias stattw="stylestats http://localhost.twitch.tv:3000/assets/application.css?body=1"
@@ -274,11 +238,3 @@ function restart() {
     alias ngstart="nginx -s reload"
     alias webstart="ngstart && phpstart"
 
-# Push to production
-alias deployph="ph && co master && pull && co prod-gb && git merge master && push && co prod-cv && git merge master && push && co master && gb && co master && pull && co prod && pull && git merge master && co master && cv && co master && pull && co prod && pull && git merge master && co master"
-
-alias deploycv="ph && co master && pull && co prod-cv && git merge master && push && co master && cv && co master && pull && co prod && pull && git merge master && push && co master"
-
-alias deploygs="ph && co master && pull && co prod-gs && pull && git merge master && push && co master && gs && co master && pull && co prod && pull && git merge master && push && co master"
-
-alias deploygb="ph && co master && pull && co prod-gb && pull && git merge master && push && co master && gb && co master && pull && co prod && pull && git merge master && push && co master"
