@@ -1,20 +1,19 @@
 # Set path for brew, then use Dropbox Dotfiles, then android sdk
-export PATH=/usr/local/bin:/usr/local/sbin:~/Dropbox/Documents/DotFiles/bin:~/Library/Flex/flex_sdk_4.6/bin:~/android/sdk/tools:$PATH
-
+export PATH="/usr/local/bin":$PATH
+export PATH="~/Dropbox/Documents/DotFiles/bin":$PATH
 # Fancy sweet ass colors in terminal
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 
 # Set Path in terminal to show current user logged in current path - current git branch - git status if dirty
-export PS1='<\[\033[0;35m\]\h\[\033[0m\]:\[\033[0;33m\]\u\[\033[0m\] : \[\033[1;36m\]\w\[\033[0m\] \[\033[0;35m\]$(gitify)\[\033[0m\]> '
+export PS1='\[\033[1;36m\]\w\[\033[0m\] \[\033[0;35m\]$(gitify)\[\033[0m\] =^.^= : '
 
 # EVAL for Twitch junk
 eval "$(rbenv init -)"
-export CC=/usr/local/bin/gcc-4.2
-export CXX=/usr/local/bin/g++-4.2
-
-export PATH="/Users/alexisgallisa/Library/Flex/flex_sdk_4.6/bin":$PATH
+# export CC=/usr/bin/gcc
+export PATH="~/Library/Flex/flex_sdk_4.6/bin":$PATH
 export FLEX_HOME="/Users/alexisgallisa/Library/Flex/flex_sdk_4.6"
+export GOPATH=$HOME/go
 
 
 # Function Aliases
@@ -33,7 +32,7 @@ function git-dirty {
     st=$(git status 2>/dev/null | tail -n 1)
     if [[ $st != "nothing to commit, working directory clean" ]]
     then
-        echo " *You have shit to add or push"
+        echo " *SHIT TODO"
     fi
 }
 
@@ -170,9 +169,9 @@ function restart() {
     alias la="ls -la"
     alias ll="ls -l"
 
-# Open files or directories in Sublime 2. Use "sub ." to open directory
+# Open files or directories in Sublime. Use "sub ." to open directory
 # ---------------------------------------------------------------------
-    alias sub='open -a "Sublime Text 2"'
+    alias sub='open -a "Sublime Text"'
 
 # Make Git life easier with these aliases
 # ---------------------------------------
@@ -188,6 +187,7 @@ function restart() {
     alias merge="git merge"
     alias reset="git reset --hard"
     alias diff="git diff"
+    alias difftool="git difftool"
     alias stash="git stash"
     alias pop="git stash pop"
     alias wtf="gg wtf"
@@ -199,12 +199,14 @@ function restart() {
     alias tailgs="gs && tail -f app/logs/dev.log"
 
     #View all of user's commits
+    alias logall="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --stat --author-date-order"
     alias loga="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='Alexis' --stat"
     alias logal="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='Allen' --stat"
     alias logj="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='jarques' --stat"
     alias logb="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='Bryan' --stat"
     alias loge="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='Elsie' --stat"
     alias logt="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='thomas' --stat"
+
 
 # Path Aliases
 # -------------
@@ -218,16 +220,20 @@ function restart() {
     alias dp="cd ~/Dropbox"
 
     alias home="cd ~"
+    alias hook="cd ~/webhook/"
     alias ag="cd ~/webhook/alexisgallisa"
+    alias ag2="cd ~/Dropbox/AlexisGallisa/alexisgallisa.com"
 
-    alias tw="cd ~/twitch/web"
-
+    alias tw="cd ~/twitch/"
+    alias tw2="cd ~/twitch/twitchcon"
+    alias tw3="cd ~/twitch/twitchcon-static"
+    alias tw4="cd ~/twitch/styles"
+    alias tw5="cd ~/twitch/styles-link"
 
 # Twitch Aliases
 # --------------
     alias ptw="tw && co master && pull"
-    alias ptw2="tw && co optimize-sass-trapjaw && pull"
-    alias ptw3="tw && co nkss && pull"
+    alias ptw2="tw2 && co hook && pull"
 
 
 # Compass Style Aliases - Eveyone should use a css compiler
@@ -252,13 +258,14 @@ function restart() {
 
     # Grab CSS stats on TW css
     alias stattw="stylestats http://localhost.twitch.tv:3000/assets/application.css?body=1"
-    alias stattww="stylestats http://www-cdn.jtvnw.net/assets/application-854c668869ffcd58b7e7f06657195a91.css"
+    alias stattww="stylestats http://www-cdn.jtvnw.net/assets/application-329f474bc514cb640aa8d4d8ebbcc408.css"
 
 # Misc Aliases Edit Hosts and nginx files with TextMate - SSH into appletv for jailbreaking
 # -----------------------------------------------------------------------------------------
     alias edithosts="sub /etc/hosts"
     alias editng="sub /usr/local/etc/nginx/nginx.conf"
     alias editphp="sub /usr/local/etc/php/5.4/php.ini"
+    alias killrails="sub /Users/alexisgallisa/twitch/web/tmp/pids/server.pid"
     alias atv="ssh root@Apple-tv.local"
     alias cphp="php app/console --env=dev cache:clear"
 
@@ -275,6 +282,3 @@ alias deploycv="ph && co master && pull && co prod-cv && git merge master && pus
 alias deploygs="ph && co master && pull && co prod-gs && pull && git merge master && push && co master && gs && co master && pull && co prod && pull && git merge master && push && co master"
 
 alias deploygb="ph && co master && pull && co prod-gb && pull && git merge master && push && co master && gb && co master && pull && co prod && pull && git merge master && push && co master"
-
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
