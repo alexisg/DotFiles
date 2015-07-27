@@ -8,7 +8,7 @@ export LSCOLORS=ExFxCxDxBxegedabagacad
 # Set Path in terminal to show current user logged in current path - current git branch - git status if dirty
 export PS1='\[\033[1;36m\]\w\[\033[0m\] \[\033[0;35m\]$(gitify)\[\033[0m\] =^.^= : '
 
-# EVAL for Twitch junk
+# EVAL for Twitch RBENV
 eval "$(rbenv init -)"
 # export CC=/usr/bin/gcc
 export PATH="~/Library/Flex/flex_sdk_4.6/bin":$PATH
@@ -129,7 +129,8 @@ function gg() {
 # Twitch Aliases
 # --------------
 
-    alias tw="cd ~/twitch/"
+    alias tw="cd ~/twitch/web"
+    alias tc="cd ~/twitch/web-client"
     alias tw2="cd ~/twitch/twitchcon"
     alias tw3="cd ~/twitch/twitchcon-static"
     alias tw4="cd ~/twitch/styles"
@@ -146,10 +147,9 @@ function gg() {
     alias editphp="sub /usr/local/etc/php/5.4/php.ini"
     alias killrails="sub /Users/alexisgallisa/twitch/web/tmp/pids/server.pid"
     alias atv="ssh root@Apple-tv.local"
-    alias cphp="php app/console --env=dev cache:clear"
 
-    # Sometime PHP and Nginx are jerks and need to be rebooted
+    # Sometime PHP and Nginx are jerks and need to be rebooted or cleared
     alias phpstart="launchctl unload -w ~/Library/LaunchAgents/php54.plist && launchctl load -w ~/Library/LaunchAgents/php54.plist"
     alias ngstart="nginx -s reload"
     alias webstart="ngstart && phpstart"
-
+    alias cphp="php app/console --env=dev cache:clear"
