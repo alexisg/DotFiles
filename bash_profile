@@ -131,21 +131,22 @@ function gg() {
 
     alias tw="cd ~/twitch/web"
     alias tc="cd ~/twitch/web-client"
-    alias tw2="cd ~/twitch/twitchcon"
-    alias tw3="cd ~/twitch/twitchcon-static"
-    alias tw4="cd ~/twitch/styles"
-    alias tw5="cd ~/twitch/styles-link"
+    alias ts="cd ~/twitch/styles"
+
+    alias con="cd ~/twitch/twitchcon"
+    alias con2="cd ~/twitch/twitchcon-static"
+
 
     # Grab CSS stats on TW css
     alias stattw="stylestats http://localhost.twitch.tv:3000/assets/application.css?body=1"
-    alias stattww="stylestats http://www-cdn.jtvnw.net/assets/application-329f474bc514cb640aa8d4d8ebbcc408.css"
+    alias stattww="stylestats http://www-cdn.jtvnw.net/assets/application-fa297f531e0184667554674d083aac78.css"
 
 # Misc Aliases Edit Hosts and nginx files with TextMate - SSH into appletv for jailbreaking
 # -----------------------------------------------------------------------------------------
     alias edithosts="sub /etc/hosts"
     alias editng="sub /usr/local/etc/nginx/nginx.conf"
     alias editphp="sub /usr/local/etc/php/5.4/php.ini"
-    alias killrails="sub /Users/alexisgallisa/twitch/web/tmp/pids/server.pid"
+    alias killrails="kill -INT $(cat ~/twitch/web/tmp/pids/server.pid)"
     alias atv="ssh root@Apple-tv.local"
 
     # Sometime PHP and Nginx are jerks and need to be rebooted or cleared
