@@ -69,6 +69,11 @@ function gg() {
     done
 }
 
+# Kill rails when it gets stuck by parsing its server pid file
+function dierails() {
+    kill -INT $(cat ~/twitch/web/tmp/pids/server.pid)
+}
+
 
 # Edit bash profile in dropbox and then reload using source in terminal
 # mate assumes you have Textmate command line tools set but you could also use VI,VIM,PICO,EMACS,Sublime,etc
@@ -146,7 +151,6 @@ function gg() {
     alias edithosts="sub /etc/hosts"
     alias editng="sub /usr/local/etc/nginx/nginx.conf"
     alias editphp="sub /usr/local/etc/php/5.4/php.ini"
-    alias killrails="kill -INT $(cat ~/twitch/web/tmp/pids/server.pid)"
     alias atv="ssh root@Apple-tv.local"
 
     # Sometime PHP and Nginx are jerks and need to be rebooted or cleared
