@@ -1,3 +1,8 @@
+# Git Completetion Scripts
+# If you want to host these on Dropbox with symlinks
+# ln -s ~/Dropbox/Documents/DotFiles/git-completion ~/.git-completion
+source ~/.git-completion.bash
+
 # Set path for brew, then use Dropbox Dotfiles, then android sdk
 export PATH="/usr/local/bin":$PATH
 export PATH="~/Dropbox/Documents/DotFiles/bin":$PATH
@@ -70,8 +75,8 @@ function gg() {
 }
 
 # Kill rails when it gets stuck by parsing its server pid file
-function dierails() {
-    kill -INT $(cat ~/twitch/web/tmp/pids/server.pid)
+function killrails() {
+    kill -9 $(cat ~/twitch/web/tmp/pids/server.pid)
 }
 
 
@@ -108,6 +113,7 @@ function dierails() {
     alias reset="git reset --hard"
     alias diff="git diff"
     alias difftool="git difftool"
+    alias dt="git difftool"
     alias stash="git stash"
     alias pop="git stash pop"
     alias wtf="gg wtf"
@@ -120,6 +126,7 @@ function dierails() {
     alias logb="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='Bryan' --stat"
     alias loge="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='Elsie' --stat"
     alias logt="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='thomas' --stat"
+    alias logl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='Laura' --stat"
 
 
 # Path Aliases
@@ -143,8 +150,9 @@ function dierails() {
 
 
     # Grab CSS stats on TW css
-    alias stattw="stylestats http://localhost.twitch.tv:3000/assets/application.css?body=1"
-    alias stattww="stylestats http://www-cdn.jtvnw.net/assets/application-fa297f531e0184667554674d083aac78.css"
+    alias statapp="stylestats ~/twitch/styles/static/css/application.css"
+    alias statsg="stylestats ~/twitch/styles/static/css/styleguide.css"
+    alias statweb="stylestats https://web-cdn.ttvnw.net/styles/application.css"
 
 # Misc Aliases Edit Hosts and nginx files with TextMate - SSH into appletv for jailbreaking
 # -----------------------------------------------------------------------------------------
