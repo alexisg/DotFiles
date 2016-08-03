@@ -1,14 +1,11 @@
-# Git Completetion Scripts
-# If you want to host these on Dropbox with symlinks
-# ln -s ~/Dropbox/Documents/DotFiles/git-completion ~/.git-completion
-source ~/.git-completion.bash
-
 # Set path for brew, then use Dropbox Dotfiles, then android sdk
-export PATH="/usr/local/bin":$PATH
-export PATH="~/Dropbox/Documents/DotFiles/bin":$PATH
+PATH=/usr/local/bin:~/Dropbox\ \(Personal\)/Documents/DotFiles/bin:$PATH
+
 # Fancy sweet ass colors in terminal
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
+
+export NACL_SDK_ROOT=~/nacl_sdk/pepper_49
 
 # Set Path in terminal to show current user logged in current path - current git branch - git status if dirty
 export PS1='\[\033[1;36m\]\w\[\033[0m\] \[\033[0;35m\]$(gitify)\[\033[0m\] =^.^= : '
@@ -16,10 +13,15 @@ export PS1='\[\033[1;36m\]\w\[\033[0m\] \[\033[0;35m\]$(gitify)\[\033[0m\] =^.^=
 # EVAL for Twitch RBENV
 eval "$(rbenv init -)"
 # export CC=/usr/bin/gcc
-export PATH="~/Library/Flex/flex_sdk_4.6/bin":$PATH
-export FLEX_HOME="/Users/alexisgallisa/Library/Flex/flex_sdk_4.6"
+# export PATH="~/Library/Flex/flex_sdk_4.6/bin":$PATH
+# export FLEX_HOME="~/Library/Flex/flex_sdk_4.6"
 export GOPATH=$HOME/go
 
+# Use Brew Bash Autocomplete
+# brew install bash-completion
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
+fi
 
 # Function Aliases
 # ------------------------------------------------------------------------------
@@ -84,10 +86,10 @@ function killrails() {
 # mate assumes you have Textmate command line tools set but you could also use VI,VIM,PICO,EMACS,Sublime,etc
 # To point your bash profile to a file hosted on dropbox make a symbolic link like so
 # ---------------------------------------------------------------
-# ln -s ~/Dropbox/Documents/DotFiles/bash_profile ~/.bash_profile
+# ln -s ~/Dropbox\ \(Personal\)/Documents/DotFiles/bash_profile ~/.bash_profile
 # ---------------------------------------------------------------
     alias so="source ~/.bash_profile"
-    alias profile="sub ~/Dropbox/Documents/DotFiles/bash_profile"
+    alias profile="sub ~/Dropbox\ \(Personal\)/Documents/DotFiles/bash_profile"
 
 # List directory contents with/without invisibles
 # -----------------------------------------------
@@ -144,10 +146,17 @@ function killrails() {
     alias tw="cd ~/twitch/web"
     alias tc="cd ~/twitch/web-client"
     alias ts="cd ~/twitch/styles"
+    alias gs="grunt base --live-reload false"
+    alias gopen="grunt open:styles"
+
+    alias cof="co friends-update-1"
 
     alias con="cd ~/twitch/twitchcon"
     alias con2="cd ~/twitch/twitchcon-static"
 
+    alias nes="npm install && ember serve"
+    alias es="ember serve"
+    alias rs="bundle exec rails s"
 
     # Grab CSS stats on TW css
     alias statapp="stylestats ~/twitch/styles/static/css/application.css"
@@ -166,3 +175,6 @@ function killrails() {
     alias ngstart="nginx -s reload"
     alias webstart="ngstart && phpstart"
     alias cphp="php app/console --env=dev cache:clear"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
