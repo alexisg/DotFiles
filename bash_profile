@@ -103,6 +103,7 @@ function killrails() {
 # Make Git life easier with these aliases
 # ---------------------------------------
     alias co="git checkout"
+    alias cours="git checkout --ours"
     alias push="git push"
 
     # Use rebase as base pull. If pull merge fails you may need to abort the rebase
@@ -125,10 +126,8 @@ function killrails() {
     alias loga="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='Alexis' --stat"
     alias logal="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='Allen' --stat"
     alias logj="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='jarques' --stat"
-    alias logb="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='Bryan' --stat"
     alias loge="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='Elsie' --stat"
     alias logt="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='thomas' --stat"
-    alias logl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='Laura' --stat"
 
 
 # Path Aliases
@@ -148,8 +147,6 @@ function killrails() {
     alias ts="cd ~/twitch/styles"
     alias gs="grunt base --live-reload false"
     alias gopen="grunt open:styles"
-
-    alias cof="co friends-update-1"
 
     alias con="cd ~/twitch/twitchcon"
     alias con2="cd ~/twitch/twitchcon-static"
