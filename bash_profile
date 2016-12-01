@@ -1,5 +1,5 @@
 # Set path for brew, then use Dropbox Dotfiles, then android sdk
-PATH=/usr/local/bin:~/Dropbox\ \(Personal\)/Documents/DotFiles/bin:$PATH
+PATH=/usr/local/bin:~/Dropbox\ \(Personal\)/Documents/DotFiles/bin:~/Dropbox/DotFiles/bin:$PATH
 
 # Fancy sweet ass colors in terminal
 export CLICOLOR=1
@@ -37,7 +37,7 @@ function git-branch-name {
 
 function git-dirty {
     st=$(git status 2>/dev/null | tail -n 1)
-    if [[ $st != "nothing to commit, working directory clean" ]]
+    if [[ $st != "nothing to commit, working tree clean" ]]
     then
         echo " *SHIT TODO"
     fi
@@ -81,6 +81,10 @@ function killrails() {
     kill -9 $(cat ~/twitch/web/tmp/pids/server.pid)
 }
 
+# Kill 8888 when it gets stuck
+function kill8888() {
+    kill -9 $(lsof -ti tcp:8888)
+}
 
 # Edit bash profile in dropbox and then reload using source in terminal
 # mate assumes you have Textmate command line tools set but you could also use VI,VIM,PICO,EMACS,Sublime,etc
@@ -152,7 +156,7 @@ function killrails() {
     alias con2="cd ~/twitch/twitchcon-static"
 
     alias nes="npm install && ember serve"
-    alias es="ember serve"
+    alias es="ember serve --live-reload false"
     alias rs="bundle exec rails s"
 
     # Grab CSS stats on TW css
