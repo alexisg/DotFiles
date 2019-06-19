@@ -1,27 +1,29 @@
 # Set path for brew, then use Dropbox Dotfiles, then android sdk
-PATH=/usr/local/bin:~/Dropbox\ \(Personal\)/Documents/DotFiles/bin:~/Dropbox/DotFiles/bin:$PATH
+PATH=/usr/local/bin:~/Dropbox\ \(Personal\)/Documents/DotFiles/bin:$PATH
 
 # Fancy sweet ass colors in terminal
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 
-export NACL_SDK_ROOT=~/nacl_sdk/pepper_49
-
 # Set Path in terminal to show current user logged in current path - current git branch - git status if dirty
 export PS1='\[\033[1;36m\]\w\[\033[0m\] \[\033[0;35m\]$(gitify)\[\033[0m\] =^.^= : '
-
-# EVAL for Twitch RBENV
-eval "$(rbenv init -)"
-# export CC=/usr/bin/gcc
-# export PATH="~/Library/Flex/flex_sdk_4.6/bin":$PATH
-# export FLEX_HOME="~/Library/Flex/flex_sdk_4.6"
-export GOPATH=$HOME/go
+# export PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
 
 # Use Brew Bash Autocomplete
 # brew install bash-completion
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion
 fi
+
+# Edit bash profile in dropbox and then reload using source in terminal
+# mate assumes you have Textmate command line tools set but you could also use VI,VIM,PICO,EMACS,Sublime,etc
+# To point your bash profile to a file hosted on dropbox make a symbolic link like so
+# ---------------------------------------------------------------
+# ln -s ~/Dropbox\ \(Personal\)/Documents/DotFiles/bash_profile ~/.bash_profile
+# ---------------------------------------------------------------
+    source ~/.git-completion.bash
+    alias so="source ~/.bash_profile"
+    alias profile="code ~/Dropbox\ \(Personal\)/Documents/DotFiles/bash_profile"
 
 # Function Aliases
 # ------------------------------------------------------------------------------
@@ -86,14 +88,6 @@ function kill8888() {
     kill -9 $(lsof -ti tcp:8888)
 }
 
-# Edit bash profile in dropbox and then reload using source in terminal
-# mate assumes you have Textmate command line tools set but you could also use VI,VIM,PICO,EMACS,Sublime,etc
-# To point your bash profile to a file hosted on dropbox make a symbolic link like so
-# ---------------------------------------------------------------
-# ln -s ~/Dropbox\ \(Personal\)/Documents/DotFiles/bash_profile ~/.bash_profile
-# ---------------------------------------------------------------
-    alias so="source ~/.bash_profile"
-    alias profile="sub ~/Dropbox\ \(Personal\)/Documents/DotFiles/bash_profile"
 
 # List directory contents with/without invisibles
 # -----------------------------------------------
@@ -124,6 +118,13 @@ function kill8888() {
     alias stash="git stash"
     alias pop="git stash pop"
     alias wtf="gg wtf"
+    alias gsub="git submodule update --recursive"
+    alias yi="yarn"
+    alias ys="yarn start"
+    alias yb="yarn build"
+    alias yis="yarn && yarn start"
+    alias svg="svgo --config=~/.svgo-config.yml"
+    alias gmuv= git fetch origin && git merge origin/ultraviolet
 
     #View all of user's commits
     alias logall="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --stat --author-date-order"
@@ -146,10 +147,11 @@ function kill8888() {
 # Twitch Aliases
 # --------------
 
-    alias tw="cd ~/twitch/web"
-    alias tc="cd ~/twitch/web-client"
+    alias tw="cd ~/twitch/twilight"
+    alias tc="cd ~/twitch/core-ui"
+    alias tu="cd ~/twitch/ui-prototype-tool"
     alias ts="cd ~/twitch/styles"
-    alias gs="grunt base --live-reload false"
+    # alias grunts="grunt base --live-reload false"
     alias gopen="grunt open:styles"
 
     alias con="cd ~/twitch/twitchcon"
@@ -176,6 +178,43 @@ function kill8888() {
     alias ngstart="nginx -s reload"
     alias webstart="ngstart && phpstart"
     alias cphp="php app/console --env=dev cache:clear"
+    alias simpleserve="python -m SimpleHTTPServer 8000"
 
+# Use NVM for Node management
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
+  . "/usr/local/opt/nvm/nvm.sh"
+
+# Twitch Android .bash_profile
+
+# NOTE: You need to update this to where you keep twitch-android and the android-sdk (respectively) on your computer. Don't add a trailing slash to this!
+export TWITCH_ANDROID_HOME='/Users/agallisa/twitch/twitch-android'
+export ANDROID_SDK="${HOME}"/Library/Android/sdk
+export ANDROID_HOME="${ANDROID_SDK}"
+
+# Export ANDROID_NDK_HOME
+export ANDROID_NDK_HOME="${TWITCH_ANDROID_HOME}"/android-dev-tools/ndk/
+
+# Export JAVA_HOME
+export JAVA_HOME="${TWITCH_ANDROID_HOME}"/android-dev-tools/jdk8/Contents/Home/
+
+# Get ndk-build on the PATH
+export PATH=$PATH:"${ANDROID_NDK_HOME}"
+
+# Get the Jenkins build scripts folder on the PATH
+export PATH=$PATH:"${TWITCH_ANDROID_HOME}"/jenkins/
+
+# Add access to adb and uiautomatorview to PATH
+export PATH=$PATH:"${ANDROID_SDK}"/platform-tools
+export PATH=$PATH:"${ANDROID_SDK}"/tools/bin
+
+# Changes your directory into the twitch-android root
+alias t='cd '"${TWITCH_ANDROID_HOME}"
+
+# Creates a CMakeLists.txt file for the SDK files
+alias sdk_cmake='cd '"${TWITCH_ANDROID_HOME}"' && ./scripts/generate_sdk_cmake'
+
+# Deletes the debug version of the app from the connected device/emulator (will fail if more than one device is connected)
+alias dta='adb uninstall tv.twitch.android.debug'
+
+# Runs JaCoCo code coverage and makes a beep sound when JaCoCo finishes
+alias jcc='t && ./gradlew -Pcoverage clean jacocoTestReport && afplay /System/Library/Sounds/Funk.aiff'
