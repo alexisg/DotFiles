@@ -21,9 +21,12 @@ fi
 # ---------------------------------------------------------------
 # ln -s ~/Dropbox\ \(Personal\)/Documents/DotFiles/bash_profile ~/.bash_profile
 # ---------------------------------------------------------------
-    source ~/.git-completion.bash
+    source ~/Dropbox\ \(Personal\)/Documents/DotFiles/git-completion.bash
+    source ~/Dropbox\ \(Personal\)/Documents/DotFiles/bash_profile_android.bash
     alias so="source ~/.bash_profile"
     alias profile="code ~/Dropbox\ \(Personal\)/Documents/DotFiles/bash_profile"
+
+
 
 # Function Aliases
 # ------------------------------------------------------------------------------
@@ -124,15 +127,12 @@ function kill8888() {
     alias yb="yarn build"
     alias yis="yarn && yarn start"
     alias svg="svgo --config=~/.svgo-config.yml"
-    alias gmuv= git fetch origin && git merge origin/ultraviolet
+    alias gmuv="git fetch origin && git merge origin/ultraviolet"
 
     #View all of user's commits
     alias logall="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --stat --author-date-order"
     alias loga="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='Alexis' --stat"
-    alias logal="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='Allen' --stat"
     alias logj="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='jarques' --stat"
-    alias loge="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='Elsie' --stat"
-    alias logt="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='thomas' --stat"
 
 
 # Path Aliases
@@ -180,41 +180,10 @@ function kill8888() {
     alias cphp="php app/console --env=dev cache:clear"
     alias simpleserve="python -m SimpleHTTPServer 8000"
 
+
 # Use NVM for Node management
+# ---------------------------
 export NVM_DIR="$HOME/.nvm"
   . "/usr/local/opt/nvm/nvm.sh"
 
-# Twitch Android .bash_profile
 
-# NOTE: You need to update this to where you keep twitch-android and the android-sdk (respectively) on your computer. Don't add a trailing slash to this!
-export TWITCH_ANDROID_HOME='/Users/agallisa/twitch/twitch-android'
-export ANDROID_SDK="${HOME}"/Library/Android/sdk
-export ANDROID_HOME="${ANDROID_SDK}"
-
-# Export ANDROID_NDK_HOME
-export ANDROID_NDK_HOME="${TWITCH_ANDROID_HOME}"/android-dev-tools/ndk/
-
-# Export JAVA_HOME
-export JAVA_HOME="${TWITCH_ANDROID_HOME}"/android-dev-tools/jdk8/Contents/Home/
-
-# Get ndk-build on the PATH
-export PATH=$PATH:"${ANDROID_NDK_HOME}"
-
-# Get the Jenkins build scripts folder on the PATH
-export PATH=$PATH:"${TWITCH_ANDROID_HOME}"/jenkins/
-
-# Add access to adb and uiautomatorview to PATH
-export PATH=$PATH:"${ANDROID_SDK}"/platform-tools
-export PATH=$PATH:"${ANDROID_SDK}"/tools/bin
-
-# Changes your directory into the twitch-android root
-alias t='cd '"${TWITCH_ANDROID_HOME}"
-
-# Creates a CMakeLists.txt file for the SDK files
-alias sdk_cmake='cd '"${TWITCH_ANDROID_HOME}"' && ./scripts/generate_sdk_cmake'
-
-# Deletes the debug version of the app from the connected device/emulator (will fail if more than one device is connected)
-alias dta='adb uninstall tv.twitch.android.debug'
-
-# Runs JaCoCo code coverage and makes a beep sound when JaCoCo finishes
-alias jcc='t && ./gradlew -Pcoverage clean jacocoTestReport && afplay /System/Library/Sounds/Funk.aiff'
