@@ -1,35 +1,37 @@
 # Set path for brew, then use Dropbox Dotfiles, then android sdk
 PATH=/usr/local/bin:~/Dropbox\ \(Personal\)/Documents/DotFiles/bin:$PATH
 
-# Fancy sweet ass colors in terminal
+# To point your bash profile to a file hosted on dropbox make a symbolic link like so
+# Replace the path with your own drive path
+# -----------------------------------------------------------------------------------
+# ln -s ~/Dropbox\ \(Personal\)/Documents/DotFiles/bash_profile ~/.bash_profile
+   
+# Edit bash profile in dropbox using vscode `code` and then use source  quickly with `so`
+# --------------------------------------------------------------------------------------
+alias profile="code ~/Dropbox\ \(Personal\)/Documents/DotFiles/bash_profile"
+alias so="source ~/.bash_profile"
+
+
+# Fancy colors in terminal
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 
 # Set Path in terminal to show current user logged in current path - current git branch - git status if dirty
 export PS1='\[\033[1;36m\]\w\[\033[0m\] \[\033[0;35m\]$(gitify)\[\033[0m\] =^.^= : '
-# export PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
 
-# Use Brew Bash Autocomplete
-# brew install bash-completion
+# Use Brew Bash Autocomplete `brew install bash-completion`
+# --------------------------------------------------------
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion
 fi
 
-# Edit bash profile in dropbox and then reload using source in terminal
-# mate assumes you have Textmate command line tools set but you could also use VI,VIM,PICO,EMACS,Sublime,etc
-# To point your bash profile to a file hosted on dropbox make a symbolic link like so
-# ---------------------------------------------------------------
-# ln -s ~/Dropbox\ \(Personal\)/Documents/DotFiles/bash_profile ~/.bash_profile
-# ---------------------------------------------------------------
-    source ~/Dropbox\ \(Personal\)/Documents/DotFiles/git-completion.bash
-    source ~/Dropbox\ \(Personal\)/Documents/DotFiles/bash_profile_android.bash
-    alias so="source ~/.bash_profile"
-    alias profile="code ~/Dropbox\ \(Personal\)/Documents/DotFiles/bash_profile"
-
-
+# Source git completion bash from git and other source files as needed
+# --------------------------------------------------------------------
+source ~/Dropbox\ \(Personal\)/Documents/DotFiles/git-completion.bash
+source ~/Dropbox\ \(Personal\)/Documents/DotFiles/bash_profile_android.bash
 
 # Function Aliases
-# ------------------------------------------------------------------------------
+# ----------------
 
 # These functions are run to populate the path in terminal
 function parse_git_branch {
@@ -98,7 +100,7 @@ function kill8888() {
     alias ll="ls -l"
 
 # Open files or directories in Sublime. Use "sub ." to open directory
-# ---------------------------------------------------------------------
+# -------------------------------------------------------------------
     alias sub='open -a "Sublime Text"'
 
 # Make Git life easier with these aliases
