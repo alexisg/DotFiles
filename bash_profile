@@ -5,7 +5,7 @@ PATH=/usr/local/bin:~/Dropbox\ \(Personal\)/Documents/DotFiles/bin:$PATH
 # Replace the path with your own drive path
 # -----------------------------------------------------------------------------------
 # ln -s ~/Dropbox\ \(Personal\)/Documents/DotFiles/bash_profile ~/.bash_profile
-   
+
 # Edit bash profile in dropbox using vscode `code` and then use source  quickly with `so`
 # --------------------------------------------------------------------------------------
 alias profile="code ~/Dropbox\ \(Personal\)/Documents/DotFiles/bash_profile"
@@ -128,7 +128,7 @@ function kill8888() {
     alias ys="yarn start"
     alias yb="yarn build"
     alias yis="yarn && yarn start"
-    alias svg="svgo --config=~/.svgo-config.yml"
+    alias svg="svgo --config=/Users/alexisgallisa/.svgo-config.yml"
     alias gmuv="git fetch origin && git merge origin/ultraviolet"
 
     #View all of user's commits
@@ -170,9 +170,9 @@ function kill8888() {
 
 # Misc Aliases Edit Hosts and nginx files with TextMate - SSH into appletv for jailbreaking
 # -----------------------------------------------------------------------------------------
-    alias edithosts="sub /etc/hosts"
-    alias editng="sub /usr/local/etc/nginx/nginx.conf"
-    alias editphp="sub /usr/local/etc/php/5.4/php.ini"
+    alias edithosts="code /etc/hosts"
+    alias editng="code /usr/local/etc/nginx/nginx.conf"
+    alias editphp="code /usr/local/etc/php/5.4/php.ini"
     alias atv="ssh root@Apple-tv.local"
 
     # Sometime PHP and Nginx are jerks and need to be rebooted or cleared
@@ -189,3 +189,8 @@ export NVM_DIR="$HOME/.nvm"
   . "/usr/local/opt/nvm/nvm.sh"
 
 
+# Use GVM for Go management
+# -------------------------
+[[ -s "/Users/agallisa/.gvm/scripts/gvm" ]] && source "/Users/agallisa/.gvm/scripts/gvm"
+export GOPATH=~/go
+PATH=$GOPATH/bin:$PATH
