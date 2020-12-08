@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/alexisgallisa/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -98,6 +98,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias profile="code ~/.zshrc"
+alias so="source ~/.zshrc"
 
 prompt_context() {
   # Custom (Random emoji)
@@ -106,6 +108,10 @@ prompt_context() {
   prompt_segment black default "${emojis[$RAND_EMOJI_N]} "
 }
 
+# List directory contents with/without invisibles
+# -----------------------------------------------
+    alias la="ls -la"
+    alias ll="ls -l"
 
 # Open files or directories in Sublime. Use "sub ." to open directory
 # -------------------------------------------------------------------
@@ -136,7 +142,6 @@ prompt_context() {
     alias ys="yarn start"
     alias yb="yarn build"
     alias yis="yarn && yarn start"
-    alias svg="svgo --config=/Users/alexisgallisa/.svgo-config.yml"
     alias gmuv="git fetch origin && git merge origin/ultraviolet"
 
     #View all of user's commits
@@ -152,29 +157,16 @@ prompt_context() {
     alias home="cd ~"
 
     alias hook="cd ~/webhook/"
-    alias ag="cd ~/webhook/alexisgallisa"
+    alias ag="cd ~/github/alexisg/"
 
-# Twitch Aliases
+# Frame Aliases
 # --------------
+    alias vp="cd ~/github/vapor"
+    alias vd="cd ~/github/vapor-docs"
+    alias vn="cd ~/github/vapor-newsletters"
+    alias vs="cd ~/github/vapor-icons"
+    alias va="cd ~/github/vapor-assets"
 
-    alias tw="cd ~/twitch/twilight"
-    alias tc="cd ~/twitch/core-ui"
-    alias tu="cd ~/twitch/ui-prototype-tool"
-    alias ts="cd ~/twitch/styles"
-    # alias grunts="grunt base --live-reload false"
-    alias gopen="grunt open:styles"
-
-    alias con="cd ~/twitch/twitchcon"
-    alias con2="cd ~/twitch/twitchcon-static"
-
-    alias nes="npm install && ember serve"
-    alias es="ember serve --live-reload false"
-    alias rs="bundle exec rails s"
-
-    # Grab CSS stats on TW css
-    alias statapp="stylestats ~/twitch/styles/static/css/application.css"
-    alias statsg="stylestats ~/twitch/styles/static/css/styleguide.css"
-    alias statweb="stylestats https://web-cdn.ttvnw.net/styles/application.css"
 
 # Misc Aliases Edit Hosts and nginx files with TextMate - SSH into appletv for jailbreaking
 # -----------------------------------------------------------------------------------------
@@ -185,12 +177,20 @@ prompt_context() {
     alias editphp="code /usr/local/etc/php/5.4/php.ini"
     alias atv="ssh root@Apple-tv.local"
 
+    # Use scour to optimize a directory of SVGs
+    alias svg="find . -name '*.svg' -type f -print0 | xargs -0 -I file scour --strip-xml-prolog --enable-id-stripping --remove-descriptions --remove-titles --remove-metadata  -i 'file' -o 'file-opt'"
+
     # Sometime PHP and Nginx are jerks and need to be rebooted or cleared
     alias phpstart="launchctl unload -w ~/Library/LaunchAgents/php54.plist && launchctl load -w ~/Library/LaunchAgents/php54.plist"
     alias ngstart="nginx -s reload"
     alias webstart="ngstart && phpstart"
     alias cphp="php app/console --env=dev cache:clear"
     alias simpleserve="python -m SimpleHTTPServer 8000"
+    alias es="eleventy --serve"
+
+    function https-server() {
+        http-server --ssl --cert ~/.localhost-ssl/localhost.crt --key ~/.localhost-ssl/localhost.key
+    }
 
 
 # Use NVM for Node management
@@ -201,6 +201,6 @@ export NVM_DIR="$HOME/.nvm"
 
 # Use GVM for Go management
 # -------------------------
-[[ -s "/Users/agallisa/.gvm/scripts/gvm" ]] && source "/Users/agallisa/.gvm/scripts/gvm"
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 export GOPATH=~/go
 PATH=$GOPATH/bin:$PATH
