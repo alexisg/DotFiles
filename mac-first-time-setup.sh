@@ -66,20 +66,20 @@ fi
 # Install apps using brew or mas
 # ------------------------------ #
 
-# brew install 1password
-# brew install alfred
-# brew install swish
-# brew install dropbox
-# brew install figma
-# brew install github
-# brew install google-chrome
-# brew install handbrake
-# brew install iterm2
-# brew install rocket
-# brew install spotify
-# brew install transmit
-# brew install visual-studio-code
-# brew install vlc
+brew install 1password
+brew install alfred
+brew install swish
+brew install dropbox
+brew install figma
+brew install github
+brew install google-chrome
+brew install handbrake
+brew install iterm2
+brew install rocket
+brew install spotify
+brew install transmit
+brew install visual-studio-code
+brew install vlc
 
 # brew install fantastical
 mas install 975937182
