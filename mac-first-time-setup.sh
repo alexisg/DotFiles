@@ -3,6 +3,9 @@
 # Make sure to chmod this script 
 # chmod 755 mac-first-time-setup.sh
 
+git config --global user.name "Alexis Gallisá"
+git config --global user.email alexis@alexisgallisa.com
+
 # Let's check to see if Xcode, Brew, and OhMyZDH, App Store CLI are already installed and if not
 
 # XCode CLI
