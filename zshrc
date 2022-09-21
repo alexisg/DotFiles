@@ -1,3 +1,5 @@
+# ln -s ~/Dropbox/Documents/DotFiles/zshrc ~/.zshrc
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -141,8 +143,9 @@ prompt_context() {
     alias yi="yarn"
     alias ys="yarn start"
     alias yb="yarn build"
-    alias yis="yarn && yarn start"
+    alias yis="yarn install --force && yarn start"
     alias gmuv="git fetch origin && git merge origin/ultraviolet"
+    alias gb="git branch | sed"
 
     #View all of user's commits
     alias logall="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --stat --author-date-order"
@@ -162,10 +165,10 @@ prompt_context() {
 # Frame Aliases
 # --------------
     alias vp="cd ~/github/vapor"
-    alias vd="cd ~/github/vapor-docs"
+    alias vd="cd ~/github/vapor/apps/docs"
     alias vn="cd ~/github/vapor-newsletters"
-    alias vs="cd ~/github/vapor-icons"
-    alias va="cd ~/github/vapor-assets"
+    alias vs="cd ~/github/vapor/packages/vapor-icons"
+    alias wa="cd ~/github/web-app"
 
 
 # Misc Aliases Edit Hosts and nginx files with TextMate - SSH into appletv for jailbreaking
@@ -195,8 +198,11 @@ prompt_context() {
 
 # Use NVM for Node management
 # ---------------------------
-export NVM_DIR="$HOME/.nvm"
-  . "/usr/local/opt/nvm/nvm.sh"
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+# python3
+alias python=/usr/bin/python3
 
 
 # Use GVM for Go management
@@ -204,3 +210,5 @@ export NVM_DIR="$HOME/.nvm"
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 export GOPATH=~/go
 PATH=$GOPATH/bin:$PATH
+export PATH="/usr/local/sbin:$PATH"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
