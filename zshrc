@@ -135,7 +135,7 @@ prompt_context() {
     alias reset="git reset --hard"
     alias diff="git diff"
     alias difftool="git difftool"
-    alias dt="git difftool"
+    alias dt="git difftool -y -t Kaleidoscope"
     alias stash="git stash"
     alias pop="git stash pop"
     alias wtf="gg wtf"
@@ -165,7 +165,7 @@ prompt_context() {
 # Frame Aliases
 # --------------
     alias vp="cd ~/github/vapor"
-    alias vd="cd ~/github/vapor/apps/docs"
+    alias vd="cd ~/github/vapor/apps/sanity-docs"
     alias vn="cd ~/github/vapor-newsletters"
     alias vs="cd ~/github/vapor/packages/vapor-icons"
     alias wa="cd ~/github/web-app"
@@ -173,8 +173,6 @@ prompt_context() {
 
 # Misc Aliases Edit Hosts and nginx files with TextMate - SSH into appletv for jailbreaking
 # -----------------------------------------------------------------------------------------
-    alias profile="code ~/.zshrc"
-    alias so="source ~/.zshrc"
     alias edithosts="code /etc/hosts"
     alias editng="code /usr/local/etc/nginx/nginx.conf"
     alias editphp="code /usr/local/etc/php/5.4/php.ini"
@@ -188,8 +186,11 @@ prompt_context() {
     alias ngstart="nginx -s reload"
     alias webstart="ngstart && phpstart"
     alias cphp="php app/console --env=dev cache:clear"
-    alias simpleserve="python -m SimpleHTTPServer 8000"
+    alias simpleserve="python -m http.server 8000"
     alias es="eleventy --serve"
+
+    # Kill Node Serve
+    alias ks="killAll node"
 
     function https-server() {
         http-server --ssl --cert ~/.localhost-ssl/localhost.crt --key ~/.localhost-ssl/localhost.key
@@ -207,8 +208,16 @@ alias python=/usr/bin/python3
 
 # Use GVM for Go management
 # -------------------------
+export GOPRIVATE="github.com/Frameio"
+
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 export GOPATH=~/go
 PATH=$GOPATH/bin:$PATH
 export PATH="/usr/local/sbin:$PATH"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+# Load rbenv automatically by appending
+# the following to ~/.zshrc:
+
+eval "$(rbenv init - zsh)"

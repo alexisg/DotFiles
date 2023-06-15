@@ -31,7 +31,7 @@ fi
 # Oh MY ZSH
 # ---------
 
-if ! [ -d "$HOME" ]; then
+if ! [ -d "$HOME/.oh-my-zsh" ]; then
   echo -e "Installing OhMyZSH...\n"
   curl -L http://install.ohmyz.sh | sh
 else 
@@ -54,13 +54,22 @@ fi
 # You can keep this on Git as well but just seems to be much easier keeping on dropbox and backing up on github.
 # ln -s ~/Dropbox/Documents/DotFiles/zshrc ~/.zshrc
 
-# Maybe do NVM and Yarn seperate if you are creating aliases for ohmyzsh and other wonky thinga
+
 # NMV Manager
-# curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-# nvm install node
+
+if ! [ -d "$HOME/.nvm" ]; then
+  echo -e "Installing NVM...\n"
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+  nvm install node
+else 
+  echo -e "NVM already installed...\n"
+fi
 
 # Yarn
 # brew install yarn
+
+# Git
+brew install git
 
 # ------------------------------ #
 # Install apps using brew or mas
@@ -68,15 +77,19 @@ fi
 
 brew install 1password
 brew install alfred
-brew install swish
+brew install cleanshot
 brew install dropbox
 brew install figma
 brew install github
 brew install google-chrome
 brew install handbrake
+brew install homebrew/cask/handbrake
+brew install ImageOptim
 brew install iterm2
 brew install rocket
+brew install sim-daltonism
 brew install spotify
+brew install swish
 brew install transmit
 brew install visual-studio-code
 brew install vlc
@@ -89,3 +102,21 @@ mas install 803453959
 
 # brew  install wifi-explorer
 mas install 494803304
+
+# color-slurp
+mas install 1287239339
+
+# Photo Mill
+mas install 778590574
+
+# Moom
+mas install 419330170
+
+# Snippets Lab
+mas install 1006087419
+
+# Name Mangler
+mas install 603637384
+
+#Speedtest
+mas install 1153157709
