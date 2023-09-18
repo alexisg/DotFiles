@@ -216,8 +216,11 @@ PATH=$GOPATH/bin:$PATH
 export PATH="/usr/local/sbin:$PATH"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+# Export path for yarn
+# --------------------
+export PATH=$PATH:~/.yarn/bin
 
 # Load rbenv automatically by appending
 # the following to ~/.zshrc:
 
-eval "$(rbenv init - zsh)"
+# eval "$(rbenv init - zsh)"
