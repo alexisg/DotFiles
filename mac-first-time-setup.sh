@@ -59,7 +59,7 @@ fi
 
 if ! [ -d "$HOME/.nvm" ]; then
   echo -e "Installing NVM...\n"
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+  brew install nvm
   nvm install node
 else 
   echo -e "NVM already installed...\n"
@@ -75,42 +75,38 @@ brew install git
 # Install apps using brew or mas
 # ------------------------------ #
 
-brew install 1password
-brew install alfred
-brew install cleanshot
-brew install dropbox
-brew install figma
-brew install github
-brew install google-chrome
-brew install handbrake
-brew install homebrew/cask/handbrake
-brew install ImageOptim
-brew install iterm2
-brew install rocket
-brew install sim-daltonism
-brew install spotify
-brew install swish
-brew install transmit
-brew install visual-studio-code
-brew install vlc
+brew install --cask 1password
+brew install --cask alfred
+brew install --cask cleanshot
+brew install --cask dropbox
+brew install --cask figma
+brew install --cask github
+brew install --cask google-chrome
+brew install --cask handbrake-app
+brew install --cask ImageOptim
+brew install --cask warp
+brew install --cask jordanbaird-ice
+brew install --cask omnidisksweeper
+brew install --cask rocket
+brew install --cask sim-daltonism
+brew install --cask swish
+brew install --cask transmit
+brew install --cask cursor
+brew install --cask stats
+brew install --cask moom
+brew install --cask reminders-menubar
+brew install --cask grammarly-desktop
+brew install --cask slack
+brew install --cask wifi-explorer
+brew install --cask coteditor
+brew install --cask fantastical
 
-# brew install fantastical
-mas install 975937182
-
-# brew  install slack
-mas install 803453959
-
-# brew  install wifi-explorer
-mas install 494803304
 
 # color-slurp
-mas install 1287239339
+# mas install 1287239339
 
 # Photo Mill
 mas install 778590574
-
-# Moom
-mas install 419330170
 
 # Snippets Lab
 mas install 1006087419
@@ -120,3 +116,24 @@ mas install 603637384
 
 #Speedtest
 mas install 1153157709
+
+#SoundPaste
+mas install 6471012328 
+
+#Photomator – Photo Editor
+mas install 1444636541
+
+#Cascadea
+mas install 1432182561
+
+#Gifski - Convert videos to GIFs
+mas install 1351639930
+
+#Hand Mirror
+mas install 1502839586
+
+#TestFlight
+mas install 899247664
+
+#Kaleidoscope
+mas install 587512244

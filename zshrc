@@ -1,7 +1,8 @@
 # ln -s ~/Dropbox/Documents/DotFiles/zshrc ~/.zshrc
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# Interactive Shell Configuration
+# ================================
+# This file is sourced for all interactive shells
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -75,8 +76,7 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
+# ==================
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -91,18 +91,13 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
+# Shell Management Aliases
+# ------------------------
 alias profile="code ~/.zshrc"
 alias so="source ~/.zshrc"
 
+# Custom Prompt
+# ------------
 prompt_context() {
   # Custom (Random emoji)
   emojis=("💩" "💇" "🐸" "🐵" "🦄" "🌈")
@@ -112,115 +107,111 @@ prompt_context() {
 
 # List directory contents with/without invisibles
 # -----------------------------------------------
-    alias la="ls -la"
-    alias ll="ls -l"
+alias la="ls -la"
+alias ll="ls -l"
 
 # Open files or directories in Sublime. Use "sub ." to open directory
 # -------------------------------------------------------------------
-    alias sub='open -a "Sublime Text"'
+alias sub='open -a "Sublime Text"'
 
 # Make Git life easier with these aliases
 # ---------------------------------------
-    alias co="git checkout"
-    alias cours="git checkout --ours"
-    alias push="git push"
+alias co="git checkout"
+alias cours="git checkout --ours"
+alias push="git push"
 
-    # Use rebase as base pull. If pull merge fails you may need to abort the rebase
-    alias pull="git pull --rebase --stat"
-    alias abort="git rebase --abort"
-    alias ci="git commit -a -m"
-    alias stat="git status"
-    alias add="git add"
-    alias merge="git merge"
-    alias reset="git reset --hard"
-    alias diff="git diff"
-    alias difftool="git difftool"
-    alias dt="git difftool -y -t Kaleidoscope"
-    alias stash="git stash"
-    alias pop="git stash pop"
-    alias wtf="gg wtf"
-    alias gsub="git submodule update --recursive"
-    alias yi="yarn"
-    alias ys="yarn start"
-    alias yb="yarn build"
-    alias yis="yarn install --force && yarn start"
-    alias gmuv="git fetch origin && git merge origin/ultraviolet"
-    alias gb="git branch | sed"
+# Use rebase as base pull. If pull merge fails you may need to abort the rebase
+alias pull="git pull --rebase --stat"
+alias abort="git rebase --abort"
+alias ci="git commit -a -m"
+alias stat="git status"
+alias add="git add"
+alias merge="git merge"
+alias reset="git reset --hard"
+alias diff="git diff"
+alias difftool="git difftool"
+alias dt="git difftool -y -t Kaleidoscope"
+alias stash="git stash"
+alias pop="git stash pop"
+alias wtf="gg wtf"
+alias gsub="git submodule update --recursive"
+alias yi="yarn"
+alias ys="yarn start"
+alias yb="yarn build"
+alias yd="yarn dev"
+alias yis="yarn install --force && yarn start"
+alias gb="git branch | sed"
+# alias gupdate="branch=$(git branch --show-current) && git checkout main && git pull origin main && git checkout $branch && git merge main"
 
-    #View all of user's commits
-    alias logall="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --stat --author-date-order"
-    alias loga="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='Alexis' --stat"
-    alias logj="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='jarques' --stat"
-
+# View all of user's commits
+alias logall="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --stat --author-date-order"
+alias loga="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='Alexis' --stat"
+alias logj="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --date=short  --all --since=1.week.ago --author='jarques' --stat"
 
 # Path Aliases
 # -------------
-    alias gh="cd ~/github/"
-    alias dp="cd ~/Dropbox"
-    alias home="cd ~"
+alias ghb="cd ~/github/"
+alias dp="cd ~/Dropbox"
+alias home="cd ~"
 
-    alias hook="cd ~/webhook/"
-    alias ag="cd ~/github/alexisg/"
+alias hook="cd ~/webhook/"
+alias ag="cd ~/github/alexisg/"
 
 # Frame Aliases
 # --------------
-    alias vp="cd ~/github/vapor"
-    alias vd="cd ~/github/vapor/apps/sanity-docs"
-    alias vn="cd ~/github/vapor-newsletters"
-    alias vs="cd ~/github/vapor/packages/vapor-icons"
-    alias wa="cd ~/github/web-app"
-
+alias vp="cd ~/github/vapor"
+alias vd="cd ~/github/vapor/apps/sanity-docs"
+alias vn="cd ~/github/vapor-newsletters"
+alias vs="cd ~/github/vapor/packages/vapor-icons"
+alias wa="cd ~/github/web-app"
 
 # Misc Aliases Edit Hosts and nginx files with TextMate - SSH into appletv for jailbreaking
 # -----------------------------------------------------------------------------------------
-    alias edithosts="code /etc/hosts"
-    alias editng="code /usr/local/etc/nginx/nginx.conf"
-    alias editphp="code /usr/local/etc/php/5.4/php.ini"
-    alias atv="ssh root@Apple-tv.local"
+alias edithosts="code /etc/hosts"
+alias editng="code /usr/local/etc/nginx/nginx.conf"
+alias editphp="code /usr/local/etc/php/5.4/php.ini"
+alias atv="ssh root@Apple-tv.local"
 
-    # Use scour to optimize a directory of SVGs
-    alias svg="find . -name '*.svg' -type f -print0 | xargs -0 -I file scour --strip-xml-prolog --enable-id-stripping --remove-descriptions --remove-titles --remove-metadata  -i 'file' -o 'file-opt'"
+# Use scour to optimize a directory of SVGs
+alias svg="find . -name '*.svg' -type f -print0 | xargs -0 -I file scour --strip-xml-prolog --enable-id-stripping --remove-descriptions --remove-titles --remove-metadata  -i 'file' -o 'file-opt'"
 
-    # Sometime PHP and Nginx are jerks and need to be rebooted or cleared
-    alias phpstart="launchctl unload -w ~/Library/LaunchAgents/php54.plist && launchctl load -w ~/Library/LaunchAgents/php54.plist"
-    alias ngstart="nginx -s reload"
-    alias webstart="ngstart && phpstart"
-    alias cphp="php app/console --env=dev cache:clear"
-    alias simpleserve="python -m http.server 8000"
-    alias es="eleventy --serve"
+# Sometime PHP and Nginx are jerks and need to be rebooted or cleared
+alias phpstart="launchctl unload -w ~/Library/LaunchAgents/php54.plist && launchctl load -w ~/Library/LaunchAgents/php54.plist"
+alias ngstart="nginx -s reload"
+alias webstart="ngstart && phpstart"
+alias cphp="php app/console --env=dev cache:clear"
+alias simpleserve="python -m http.server 8000"
+alias es="eleventy --serve"
 
-    # Kill Node Serve
-    alias ks="killAll node"
+# Kill Node Serve
+alias ks="killAll node"
 
-    function https-server() {
-        http-server --ssl --cert ~/.localhost-ssl/localhost.crt --key ~/.localhost-ssl/localhost.key
-    }
+# Functions
+# ---------
+function https-server() {
+    http-server --ssl --cert ~/.localhost-ssl/localhost.crt --key ~/.localhost-ssl/localhost.key
+}
 
+# Cursor command line tool
+alias code="/Applications/Cursor.app/Contents/MacOS/Cursor"
 
-# Use NVM for Node management
-# ---------------------------
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+# Completions
+# -----------
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-# python3
-alias python=/usr/bin/python3
+# bun completions
+[ -s "/Users/alexisgallisa/.bun/_bun" ] && source "/Users/alexisgallisa/.bun/_bun"
 
+# Auto-use node from .nvmrc on terminal start
+nvm use 2>/dev/null
 
-# Use GVM for Go management
-# -------------------------
-export GOPRIVATE="github.com/Frameio"
+# Added by Protopack use node from .nvmrc on terminal start 
+nvm use 2>/dev/null 
 
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
-export GOPATH=~/go
-PATH=$GOPATH/bin:$PATH
-export PATH="/usr/local/sbin:$PATH"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Export path for yarn
-# --------------------
-export PATH=$PATH:~/.yarn/bin
-
-# Load rbenv automatically by appending
-# the following to ~/.zshrc:
-
-# eval "$(rbenv init - zsh)"
+# pnpm
+export PNPM_HOME="/Users/agallisa/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
